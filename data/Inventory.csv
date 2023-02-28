@@ -1,0 +1,40 @@
+name,currAmount,unit,minAmount,cost
+burgerPatty,182,unit,100,31
+beanBurgerPatty,320,unit,100,28
+bun,408,unit,100,16
+breadSlice,138,unit,100,10
+chickenFinger,112,unit,100,13
+chickenPatty,445,unit,100,22
+spicyChickenPatty,483,unit,100,41
+salad,267,unit,100,31
+americanCheese,386,slice,200,7
+provoloneCheese,380,slice,200,8
+potato,263,1 oz.,100,37
+bacon,235,slice,200,20
+yellowOnion,233,1/2 unit,100,46
+redOnion,326,1/2 unit,100,50
+redPepper,487,1/2 unit,100,30
+greenPepper,238,1/2 unit,200,32
+tomatos,115,unit,100,13
+lettuce,228,1 oz.,100,23
+pickles,265,1 oz.,100,29
+ketchup,228,1.oz,100,31
+mustard,327,1 oz. ,100,17
+mayonaise,342,1 oz.,100,17
+vanillaIceCream,388,4 oz. (Scoop),300,29
+chocolateIceCream,489,4 oz. (Scoop),300,11
+strawberryIceCream,499,4 oz. (Scoop),300,12
+oreoIceCream,327,4 oz. (Scoop),300,48
+chocolateChipCookie,478,unit,300,49
+sugarCookie,337,unit,300,6
+condimentCup,499,unit,300,41
+drinkCup,478,unit,300,7
+drinkLid,448,unit,300,49
+straws,313,unit,300,22
+shakeCup,317,unit,300,21
+shakeLid,457,unit,300,28
+iceCreamCup,391,unit,300,13
+spoon,399,unit,300,41
+fork,346,unit,300,19
+knife,301,unit,300,39
+bottledWater,179,unit,300,27

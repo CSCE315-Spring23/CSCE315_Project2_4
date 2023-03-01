@@ -1,59 +1,59 @@
-itemID,name,ingredientsList,menuPrice,classID
-0,hamburger,0,6.49,2
-1,cheeseburger,1,7.19,2
-2,black bean hamburger,2,7.29,2
-3,black bean cheeseburger,3,7.99,2
-4,hamburger w/ bacon,4,7.59,2
-5,cheeseburger w/ bacon,5,8.29,2
-6,black bean hamburger w/ bacon,6,8.39,2
-7,black bean cheeseburger w/ bacon,7,7.79,2
-8,double hamburger,8,8.58,2
-9,double cheeseburger,9,8.79,2
-10,double black bean hamburger,10,8.99,2
-11,double black bean cheeseburger,11,9.19,2
-12,double hamburger w/ bacon,12,9.42,2
-13,double cheeseburger w/ bacon,13,9.63,2
-14,double black bean hamburger w/ bacon,14,9.84,2
-15,double black bean cheeseburger w/ bacon,15,10.09,2
-16,gig em patty melt,16,7.39,3
-17,grilled chicken sandwich,17,7.49,3
-18,spicy grilled chicken sandwich,18,7.99,3
-19,aggie chicken club,19,8.99,3
-20,chicken philly cheese steak,20,8.99,3
-21,chicken caesar salad,21,8.29,3
-22,fries,22,1.99,1
-23,fountain drink,23,1.99,0
-24,bottled water,24,2.19,0
-25,vanilla ice cream,25,3.29,4
-26,chocolate ice cream,26,3.29,4
-27,strawberry ice cream,27,3.29,4
-28,oreo cookie ice cream,28,3.29,4
-29,vanilla shake,29,4.49,4
-30,chocolate shake,30,4.49,4
-31,strawberry shake,31,4.49,4
-32,oreo cookie shake,32,4.49,4
-33,rootbeer float,33,5.49,4
-34,chocolate chip cookie sunday,34,4.69,4
-35,sugar cookie sunday,35,4.69,4
-36,three tender basket,36,6.79,6
-37,hamburger combo,37,9.48,5
-38,cheeseburger combo,38,10.18,5
-39,black bean hamburger combo,39,10.88,5
-40,black bean cheeseburger combo,40,11.58,5
-41,hamburger w/ bacon combo,41,10.58,5
-42,cheeseburger w/ bacon combo,42,11.28,5
-43,black bean hamburger w/ bacon combo,43,11.75,5
-44,black bean cheeseburger w/ bacon combo,44,12.05,5
-45,double hamburger combo,45,12.38,5
-46,double cheeseburger combo,46,12.69,5
-47,double black bean hamburger combo,47,12.89,5
-48,double black bean cheeseburger combo,48,13.18,5
-49,double hamburger w/ bacon combo,49,12.61,5
-50,double cheeseburger w/ bacon combo,50,12.92,5
-51,double black bean hamburger w/ bacon combo,51,13.63,5
-52,double black bean cheeseburger w/ bacon combo,52,13.84,5
-53,gig em patty melt combo,53,10.38,6
-54,grilled chicken sandwich combo,54,10.89,6
-55,spicy grilled chicken sandwich combo,55,11.29,6
-56,aggie chicken club combo,56,11.99,6
-57,chicken philly cheese steak combo,57,11.99,6
+itemID,name,menuPrice,classID
+1,hamburger,6.49,2
+2,cheeseburger,7.19,2
+3,black bean hamburger,7.29,2
+4,black bean cheeseburger,7.99,2
+5,hamburger w/ bacon,7.59,2
+6,cheeseburger w/ bacon,8.29,2
+7,black bean hamburger w/ bacon,8.39,2
+8,black bean cheeseburger w/ bacon,7.79,2
+9,double hamburger,8.58,2
+10,double cheeseburger,8.79,2
+11,double black bean hamburger,8.99,2
+12,double black bean cheeseburger,9.19,2
+13,double hamburger w/ bacon,9.42,2
+14,double cheeseburger w/ bacon,9.63,2
+15,double black bean hamburger w/ bacon,9.84,2
+16,double black bean cheeseburger w/ bacon,10.09,2
+17,gig em patty melt,7.39,3
+18,grilled chicken sandwich,7.49,3
+19,spicy grilled chicken sandwich,7.99,3
+20,aggie chicken club,8.99,3
+21,chicken philly cheese steak,8.99,3
+22,chicken caesar salad,8.29,3
+23,fries,1.99,1
+24,fountain drink,1.99,0
+25,bottled water,2.19,0
+26,vanilla ice cream,3.29,4
+27,chocolate ice cream,3.29,4
+28,strawberry ice cream,3.29,4
+29,oreo cookie ice cream,3.29,4
+30,vanilla shake,4.49,4
+31,chocolate shake,4.49,4
+32,strawberry shake,4.49,4
+33,oreo cookie shake,4.49,4
+34,rootbeer float,5.49,4
+35,chocolate chip cookie sunday,4.69,4
+36,sugar cookie sunday,4.69,4
+37,three tender basket,6.79,6
+38,hamburger combo,9.48,5
+39,cheeseburger combo,10.18,5
+40,black bean hamburger combo,10.88,5
+41,black bean cheeseburger combo,11.58,5
+42,hamburger w/ bacon combo,10.58,5
+43,cheeseburger w/ bacon combo,11.28,5
+44,black bean hamburger w/ bacon combo,11.75,5
+45,black bean cheeseburger w/ bacon combo,12.05,5
+46,double hamburger combo,12.38,5
+47,double cheeseburger combo,12.69,5
+48,double black bean hamburger combo,12.89,5
+49,double black bean cheeseburger combo,13.18,5
+50,double hamburger w/ bacon combo,12.61,5
+51,double cheeseburger w/ bacon combo,12.92,5
+52,double black bean hamburger w/ bacon combo,13.63,5
+53,double black bean cheeseburger w/ bacon combo,13.84,5
+54,gig em patty melt combo,10.38,6
+55,grilled chicken sandwich combo,10.89,6
+56,spicy grilled chicken sandwich combo,11.29,6
+57,aggie chicken club combo,11.99,6
+58,chicken philly cheese steak combo,11.99,6

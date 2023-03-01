@@ -1,41 +1,45 @@
-name,currAmount,unit,minAmount,cost
-burgerPatty,388,unit,100,47
-beanBurgerPatty,456,unit,100,18
-bun,313,unit,100,25
-breadSlice,442,unit,100,16
-chickenFinger,467,unit,100,35
-chickenPatty,145,unit,100,36
-spicyChickenPatty,101,unit,100,32
-salad,320,unit,100,8
-americanCheese,405,slice,200,22
-provoloneCheese,144,slice,200,38
-potato,273,1 oz.,100,40
-bacon,366,slice,200,25
-yellowOnion,223,1/2 unit,100,6
-redOnion,368,1/2 unit,100,44
-redPepper,498,1/2 unit,100,9
-greenPepper,198,1/2 unit,200,49
-tomatos,278,unit,100,6
-lettuce,442,1 oz.,100,25
-pickles,294,1 oz.,100,26
-ketchup,252,1.oz,100,47
-mustard,342,1 oz. ,100,46
-mayonaise,379,1 oz.,100,21
-vanillaIceCream,459,4 oz. (Scoop),300,13
-chocolateIceCream,405,4 oz. (Scoop),300,48
-strawberryIceCream,409,4 oz. (Scoop),300,39
-oreoIceCream,461,4 oz. (Scoop),300,22
-milk,300,8 oz. ,300,14
-chocolateChipCookie,404,unit,300,5
-sugarCookie,480,unit,300,21
-condimentCup,341,unit,300,43
-drinkCup,304,unit,300,13
-drinkLid,451,unit,300,23
-straws,421,unit,300,44
-shakeCup,434,unit,300,50
-shakeLid,311,unit,300,26
-iceCreamCup,490,unit,300,34
-spoon,369,unit,300,36
-fork,382,unit,300,25
-knife,466,unit,300,27
-bottledWater,174,unit,300,27
+ingredientID,name,currAmount,unit,minAmount,cost
+1,burgerPatty,306,unit,100,34
+2,beanBurgerPatty,161,unit,100,43
+3,bun,167,unit,100,30
+4,breadSlice,450,unit,100,30
+5,chickenFinger,116,unit,100,49
+6,chickenPatty,116,unit,100,28
+7,spicyChickenPatty,327,unit,100,13
+8,choppedChicken,268,1/4 lbs.,200,42
+9,salad,289,unit,100,11
+10,americanCheese,135,slice,200,47
+11,provoloneCheese,304,slice,200,37
+12,potato,160,1 oz.,100,30
+13,bacon,441,slice,200,27
+14,yellowOnion,226,1/2 unit,100,34
+15,redOnion,329,1/2 unit,100,30
+16,redPepper,231,1/2 unit,100,8
+17,greenPepper,101,1/2 unit,200,16
+18,tomatos,352,unit,100,13
+19,avocado,100,1 oz.,100,47
+20,lettuce,448,1 oz.,100,6
+21,pickles,408,1 oz.,100,20
+22,ketchup,338,1.oz,100,8
+23,mustard,483,1 oz. ,100,44
+24,mayonaise,483,1 oz.,100,31
+25,vanillaIceCream,432,4 oz. (Scoop),300,16
+26,chocolateIceCream,388,4 oz. (Scoop),300,26
+27,strawberryIceCream,438,4 oz. (Scoop),300,50
+28,oreoIceCream,436,4 oz. (Scoop),300,37
+29,milk,433,8 oz. ,300,42
+30,chocolateChipCookie,334,unit,300,46
+31,sugarCookie,407,unit,300,28
+32,condimentCup,402,unit,300,24
+33,drinkCup,317,unit,300,43
+34,drinkLid,335,unit,300,43
+35,straws,368,unit,300,18
+36,shakeCup,482,unit,300,7
+37,shakeLid,351,unit,300,12
+38,iceCreamCup,346,unit,300,12
+39,spoon,479,unit,300,23
+40,fork,482,unit,300,9
+41,knife,345,unit,300,12
+42,bottledWater,335,unit,300,41
+43,subRoll,407,unit,100,21
+44,rootBeer,449,8 oz.,100,17

@@ -67,11 +67,11 @@ if __name__ == '__main__':
     currOrderID = 0
     currLineItemID = 0
 
-    for i in range(5): 
+    for i in range(365): 
         numDailyOrders = random.randint(25,200)
         timestamps = []
         for j in range(numDailyOrders):
-            date = datetime.datetime(2022,1,1,0,0,0)
+            date = datetime.datetime(2022,1,3,0,0,0)
             date += datetime.timedelta(days=i, hours=random.randint(10,21), minutes=random.randint(0,59), seconds=random.randint(0,59))
             timestamps.append(date)
         timestamps.sort()

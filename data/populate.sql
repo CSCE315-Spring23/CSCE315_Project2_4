@@ -27,7 +27,7 @@ where os.orderid=o.orderid;
 
 -- Generate respective inventory transaactions for each order
 insert into inventorytransactions (orderid,ordertime,ingredientid,qty)
-csce315331_team_4-> select o.orderid, o.ordertime, ii.ingredientid, sum(ii.qty)
-csce315331_team_4-> from orders o join orderlineitems oli on (oli.orderid=o.orderid)
-csce315331_team_4-> join itemingredients ii on (ii.menuitemid=oli.menuitemid)
-csce315331_team_4-> group by 1,2,3;
+select o.orderid, o.ordertime, ii.ingredientid, sum(ii.qty)
+from orders o join orderlineitems oli on (oli.orderid=o.orderid)
+join itemingredients ii on (ii.menuitemid=oli.menuitemid)
+group by 1,2,3;

@@ -37,7 +37,7 @@ CREATE TABLE Orders (
 );*/
 
 CREATE TABLE InventoryTransactions (
-    transactionID int PRIMARY KEY,
+    transactionID serial PRIMARY KEY,
     orderID int, 
     orderTime timestamp,
     ingredientID int,

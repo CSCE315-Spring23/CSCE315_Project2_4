@@ -28,127 +28,79 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0">
-         <children>
-            <Pane prefHeight="400.0" prefWidth="149.0">
-               <children>
-                  <VBox fx:id="navPane" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="149.0" spacing="20.0">
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
+      <TabPane prefHeight="42.0" prefWidth="635.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Entrees">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="buttonEntrees" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Entrees" />
-                        <Button fx:id="buttonCombos" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Combos" />
-                        <Button fx:id="buttonDrinks" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Drinks" />
-                        <Button fx:id="buttonSweets" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Sweets" />
-                        <Button fx:id="buttonSides" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" text="Sides" />
+                        <Button layoutX="3.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Hamburger" />
+                        <Button layoutX="197.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon Hamburger" />
+                        <Button layoutX="393.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double Hamburger" />
+                        <Button layoutX="3.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Cheeseburger" />
+                        <Button layoutX="197.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon Cheeseburger" />
+                        <Button layoutX="393.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double Cheeseburger" />
+                        <Button layoutX="3.0" layoutY="146.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="BB Hamburger" />
+                        <Button layoutX="197.0" layoutY="146.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon BB Hamburger" />
+                        <Button layoutX="393.0" layoutY="146.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double BB Hamburger" />
+                        <Button layoutX="3.0" layoutY="208.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="BB Cheeseburger" />
+                        <Button layoutX="197.0" layoutY="208.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon BB Cheeseburger" />
+                        <Button layoutX="393.0" layoutY="208.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double BB Cheeseburger" />
                      </children>
-                     <padding>
-                        <Insets bottom="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
-      <VBox prefHeight="400.0" prefWidth="503.0">
-         <children>
-            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Hamburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Bacon Hamburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Double Hamburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Cheeseburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Bacon Cheeseburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Double Cheeseburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="BB Hamburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Bacon BB Hamburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Double BB Hamburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="85.0" prefWidth="200.0" spacing="20.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="BB Cheeseburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Bacon BB Cheeseburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Double BB Cheeseburger">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </HBox>
-         </children>
-      </VBox>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Combos">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" text="Hamburger Combo" />
+                        <Button layoutX="218.0" layoutY="14.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" text="Cheeseburger Combo" />
+                        <Button layoutX="432.0" layoutY="14.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" text="Cheeseburger w/ Bacon Combo" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Drinks">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="Fountain Drink" />
+                        <Button layoutX="211.0" layoutY="25.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="Shake" />
+                        <Button layoutX="408.0" layoutY="25.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="Rootbeer Float" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Sweets">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="Sugar Cookie (Sunday)" />
+                        <Button layoutX="224.0" layoutY="14.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="Chocolate Chip Cookie (Sunday)" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Sides">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="French Fries" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </HBox>

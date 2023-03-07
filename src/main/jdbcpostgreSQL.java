@@ -3,6 +3,8 @@
 import java.sql.*;
 import java.time.*;
 import java.util.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 //import javax.swing.JOptionPane;
 
@@ -11,6 +13,12 @@ import java.util.*;
 // javac *.java
 // java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
 public class jdbcpostgreSQL {
+  public static float round(float d, int decimalPlace) {
+    BigDecimal bd = new BigDecimal(Float.toString(d));
+    bd = bd.setScale(decimalPlace, RoundingMode.HALF_UP);
+    return bd.floatValue();
+  }
+
   public static int getNewOrderId(Connection conn) {
     // Get the maximum order_id + 1 to be the new order it
     try {
@@ -26,30 +34,69 @@ public class jdbcpostgreSQL {
     return -1;
   }
 
-  public static void updateOrdersTable(Connection conn, Vector<Integer> itemID, int employeeID) {
+  public static int getNewLineItemId(Connection conn) {
+    // Get the maximum order_id + 1 to be the new order it
+    try {
+      Statement stmt = conn.createStatement();
+      String sqlStatement = "select max(lineitemid) from orderlineitems;";
+      ResultSet result = stmt.executeQuery(sqlStatement);
+      result.next();
+      int newOrderId = result.getInt(1) + 1;
+      return newOrderId;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return -1;
+  }
+
+  public static void updateOrdersAndOrderLineItemsTable(Connection conn, Vector<Integer> itemIDs, int employeeID) {
     try {
       Statement stmt = conn.createStatement();
       // Get new order id
-      int newOrderId = getNewOrderId(conn) + 1;
+      int newOrderId = getNewOrderId(conn);
 
       // Get the time
       LocalDateTime orderTime = LocalDateTime.now();
 
-      // Calculate the price
+      // Calculate the price & update orderlineitems table
+      int newLineItemId = getNewLineItemId(conn);
       float totalPrice = 0;
-      for (int i = 0; i < itemID.size(); i++) {
-        int item = itemID.elementAt(i);
-        String sqlStatement = "select name, menuPrice from MenuItems where menuItemID=" + Integer.toString(item);
+      for (int i = 0; i < itemIDs.size(); i++) {
+        // Get menu item information
+        int itemID = itemIDs.elementAt(i);
+        String sqlStatement = "select name, menuPrice from MenuItems where menuItemID=" + Integer.toString(itemID);
         ResultSet result = stmt.executeQuery(sqlStatement);
         result.next();
+        String name = result.getString("name");
+        Float itemPrice = round(result.getFloat(2), 2);
+
+        // Calculate the price
         totalPrice += result.getFloat(2);
-        System.out.println("Item " + result.getString("name") + " has price of " + Float.toString(result.getFloat(2)));
+        System.out.println("Item " + name + " has price of " + Float.toString(itemPrice));
+
+        // Insert into orderlineitem
+        sqlStatement = String.format("insert into orderlineitems values (%o, %o, %f, %o)",
+            newLineItemId, itemID, itemPrice, newOrderId);
+        System.out.println("OrderLineItems summary:");
+        System.out.println("Line item id: " + Integer.toString(newLineItemId));
+        System.out.println("Item id: " + Integer.toString(itemID));
+        System.out.println("Item price: " + Float.toString(itemPrice));
+        System.out.println("Order id: " + Integer.toString(newOrderId));
+        System.out.println();
+
+        // Execute and update accordingly
+        stmt.executeUpdate(sqlStatement);
+        newLineItemId += 1;
       }
+
+      // Round total price to 2 decimal places;
+      totalPrice = round(totalPrice, 2);
 
       System.out.println("Order summary:");
       System.out.println("Order id: " + Integer.toString(newOrderId));
       System.out.println("Total price: " + Float.toString(totalPrice));
       System.out.println("Date time: " + orderTime.toString());
+      System.out.println();
 
       // Generate sql statement to insert into order
       String sqlStatement = String.format(
@@ -70,6 +117,7 @@ public class jdbcpostgreSQL {
     try {
       conn = DriverManager.getConnection(
           "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_team_4", my.user, my.pswd);
+      conn.setAutoCommit(false);
     } catch (Exception e) {
       e.printStackTrace();
       System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -95,13 +143,13 @@ public class jdbcpostgreSQL {
     }
 
     // MAIN
+    // remember to do conn.commit() in the end to update the actual table
     Vector<Integer> vector = new Vector<Integer>();
     vector.add(1);
     vector.add(5);
     vector.add(6);
     vector.add(9);
-    updateOrdersTable(conn, vector, 5);
-    updateOrderLineItemsTable(conn, vector);
+    updateOrdersAndOrderLineItemsTable(conn, vector, 5);
 
     try {
       conn.close();

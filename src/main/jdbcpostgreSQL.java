@@ -1,36 +1,65 @@
 
 // Java Backend postgress
 import java.sql.*;
+import java.time.*;
+import java.util.*;
 
 //import javax.swing.JOptionPane;
 
-/*
-CSCE 315
-9-25-2019 Original
-2/7/2020 Update for AWS
- */
+// Command to run on Mac:
+// cd src/main
+// javac *.java
+// java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
 public class jdbcpostgreSQL {
-  public static int getNewOrderId() {
-    dbSetup my = new dbSetup();
-    Connection conn = null;
+  public static int getNewOrderId(Connection conn) {
+    // Get the maximum order_id + 1 to be the new order it
     try {
-      conn = DriverManager.getConnection(
-          "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_team_4", my.user, my.pswd);
       Statement stmt = conn.createStatement();
       String sqlStatement = "select max(orderid) from orders;";
       ResultSet result = stmt.executeQuery(sqlStatement);
-      // while (result.next()) {
-      // int newOrderId = result.getInt(0) + 1;
-      // return newOrderId;
-      // }
-      while (result.next()) {
-        System.out.println(result.getString("name"));
-      }
-      return 1;
+      result.next();
+      int newOrderId = result.getInt(1) + 1;
+      return newOrderId;
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
     return -1;
+  }
+
+  public static void updateOrdersTable(Connection conn, Vector<Integer> itemID, int employeeID) {
+    try {
+      Statement stmt = conn.createStatement();
+      // Get new order id
+      int newOrderId = getNewOrderId(conn) + 1;
+
+      // Get the time
+      LocalDateTime orderTime = LocalDateTime.now();
+
+      // Calculate the price
+      float totalPrice = 0;
+      for (int i = 0; i < itemID.size(); i++) {
+        int item = itemID.elementAt(i);
+        String sqlStatement = "select name, menuPrice from MenuItems where menuItemID=" + Integer.toString(item);
+        ResultSet result = stmt.executeQuery(sqlStatement);
+        result.next();
+        totalPrice += result.getFloat(2);
+        System.out.println("Item " + result.getString("name") + " has price of " + Float.toString(result.getFloat(2)));
+      }
+
+      System.out.println("Order summary:");
+      System.out.println("Order id: " + Integer.toString(newOrderId));
+      System.out.println("Total price: " + Float.toString(totalPrice));
+      System.out.println("Date time: " + orderTime.toString());
+
+      // Generate sql statement to insert into order
+      String sqlStatement = String.format(
+          "insert into orders values (%o, %t, %f, %o)",
+          newOrderId, orderTime, totalPrice, employeeID);
+      stmt.executeUpdate(sqlStatement);
+      System.out.println("Insert into order table successfully");
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   public static void main(String args[]) {
@@ -39,7 +68,6 @@ public class jdbcpostgreSQL {
     // Building the connection
     Connection conn = null;
     try {
-      // Class.forName("org.postgresql.Driver");
       conn = DriverManager.getConnection(
           "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_team_4", my.user, my.pswd);
     } catch (Exception e) {
@@ -65,8 +93,16 @@ public class jdbcpostgreSQL {
     } catch (Exception e) {
       System.out.println("Error accessing Database.");
     }
-    int newOrderId = getNewOrderId();
-    System.out.println("New order id:" + Integer.toString(newOrderId));
+
+    // MAIN
+    Vector<Integer> vector = new Vector<Integer>();
+    vector.add(1);
+    vector.add(5);
+    vector.add(6);
+    vector.add(9);
+    updateOrdersTable(conn, vector, 5);
+    updateOrderLineItemsTable(conn, vector);
+
     try {
       conn.close();
       System.out.println("Connection Closed.");

@@ -2,9 +2,9 @@ import java.time.*;
 
 public class orderLineItem{
 	// attributes
-
+    int price;
     // constructor(s)
-
+    public orderLineItem(){}
     // getters and setters
 
     // NOTES:

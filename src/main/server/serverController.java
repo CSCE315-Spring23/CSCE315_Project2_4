@@ -30,13 +30,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package server;
+//package server;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
-public class serverController {
+public class ServerController {
     @FXML private Text actiontarget;
     
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {

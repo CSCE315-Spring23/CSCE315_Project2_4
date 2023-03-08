@@ -30,13 +30,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package fxmlexample;
- 
+package server;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
- 
-public class FXMLExampleController {
+
+public class serverController {
     @FXML private Text actiontarget;
     
     @FXML protected void handleSubmitButtonAction(ActionEvent event) {
@@ -44,3 +44,22 @@ public class FXMLExampleController {
     }
 
 }
+
+/*
+  * public class placeholderController {
+        @FXML private Button hamburger;
+
+        public void initialize(){
+            hamburger.setOnAction(e -> addItemToOrder(1));
+        }
+
+        //button functions
+        private void addItemToOrder(int menuItemId) {
+            orderLineItem item = orderLineitem(menuItemId); //create oli object
+            o.addOrderItem(item);
+        }
+        
+        }
+
+    }
+  */

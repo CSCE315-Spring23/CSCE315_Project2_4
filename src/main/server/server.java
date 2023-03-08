@@ -30,26 +30,37 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package fxmlexample;
+package server;
 
+import java.lang.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class FXMLExample extends Application {
-    
-    public static void main(String[] args) {
-        Application.launch(FXMLExample.class, args);
-    }
-    
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("fxml_example.fxml"));
-        
-        stage.setTitle("FXML Welcome");
-        stage.setScene(new Scene(root, 300, 275));
-        stage.show();
+public class server extends Application {
+     
+     public static void main(String[] args) {
+        launch(args);
+     }
+     
+     @Override
+     public void start(Stage stage) throws Exception {
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("server.fxml"));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.setTitle("FXML Welcome");
+            stage.show();
+        }
+        catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 }
+ 

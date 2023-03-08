@@ -30,7 +30,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//package server;
+// Comment this package line out when compiling with command line
+package application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

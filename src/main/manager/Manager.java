@@ -1,5 +1,4 @@
-// Comment this package line out when compiling with command line
-package applicationm;
+//package server;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -8,7 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.fxml.FXMLLoader;
 
 
-public class Manager extends Application {
+public class Server extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {

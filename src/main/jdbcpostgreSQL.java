@@ -152,6 +152,19 @@ public class jdbcpostgreSQL {
     }
   }
 
+  public static void addInventory(Connection conn, Integer ingredientID, Integer qty) {
+    try {
+      Statement stmt = conn.createStatement();
+      String sqlStatement = "update inventory set curramount = curramount+" + Integer.toString(qty)
+          + " where ingredientid="
+          + Integer.toString(ingredientID) + ";";
+      System.out.println(sqlStatement);
+      stmt.executeUpdate(sqlStatement);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
   public static void main(String args[]) {
     // dbSetup hides my username and password
     dbSetup my = new dbSetup();
@@ -174,12 +187,20 @@ public class jdbcpostgreSQL {
     // vector.add(5);
     // vector.add(6);
     // vector.add(9);
+
     // // Get the new order id
     // int newOrderId = getNewOrderId(conn);
+
     // // Insert into order and orderlineitems table
     // updateOrdersAndOrderLineItemsTable(conn, vector, 5, newOrderId);
+
     // // Update inventorytransactions and subtract from the inventory
     // updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
+
+    // Add more inventory given ingredientID and qty
+    // Integer ingredientID = 1;
+    // Integer qty = 100;
+    // addInventory(conn, ingredientID, qty);
 
     // remember to do conn.commit() in the end to update the actual table
     try {

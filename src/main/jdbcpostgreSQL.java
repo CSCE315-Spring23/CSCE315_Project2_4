@@ -213,12 +213,12 @@ public class jdbcpostgreSQL {
     // updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
 
     // Add more inventory given ingredientID and qty
-    int ingredientID = 1;
-    int qty = 100;
-    addInventory(conn, ingredientID, qty);
+    // int ingredientID = 1;
+    // int qty = 100;
+    // addInventory(conn, ingredientID, qty);
 
-    // Get inventory qty by ingredientID
-    int currQty = getInventory(conn, ingredientID);
+    // // Get inventory qty by ingredientID
+    // int currQty = getInventory(conn, ingredientID);
     // remember to do conn.commit() in the end to update the actual table
 
     try {

@@ -50,12 +50,10 @@ public class jdbcpostgreSQL {
     return -1;
   }
 
-  public static void updateOrdersAndOrderLineItemsTable(Connection conn, Vector<Integer> itemIDs, int employeeID) {
+  public static void updateOrdersAndOrderLineItemsTable(Connection conn, Vector<Integer> itemIDs, int employeeID,
+      int newOrderId) {
     try {
       Statement stmt = conn.createStatement();
-      // Get new order id
-      int newOrderId = getNewOrderId(conn);
-
       // Get the time
       LocalDateTime orderTime = LocalDateTime.now();
 
@@ -119,6 +117,41 @@ public class jdbcpostgreSQL {
     }
   }
 
+  public static void updateInventoryTransactionsAndInventoryTable(Connection conn, int newOrderId) {
+    try {
+      Statement stmt = conn.createStatement();
+      String sqlStatement = "insert into inventorytransactions (orderid,ordertime,ingredientid,qty) select o.orderid, o.ordertime, ii.ingredientid, sum(ii.qty) from orders o join orderlineitems oli on (oli.orderid=o.orderid) and (o.orderid="
+          + Integer.toString(newOrderId)
+          + ") join itemingredients ii on (ii.menuitemid=oli.menuitemid) group by 1,2,3;";
+      System.out.println(sqlStatement);
+      stmt.executeUpdate(sqlStatement);
+
+      sqlStatement = "select * from inventorytransactions where orderid=" + Integer.toString(newOrderId) + ";";
+      System.out.println(sqlStatement);
+      Vector<String> ingredients = new Vector<String>();
+      Vector<String> qty = new Vector<String>();
+      ResultSet r = stmt.executeQuery(sqlStatement);
+
+      while (r.next()) {
+        ingredients.add(r.getString(4));
+        qty.add(r.getString(5));
+        System.out.println("Ingredient ID: " + r.getString(4) + ", qty: " + r.getString(5));
+      }
+
+      for (int i = 0; i < ingredients.size(); i++) {
+        String ingredientID = ingredients.elementAt(i);
+        sqlStatement = "update inventory set curramount = curramount-" + qty.elementAt(i) + " where ingredientid="
+            + ingredientID + ";";
+        System.out.println(sqlStatement);
+
+        stmt.executeUpdate(sqlStatement);
+      }
+
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
   public static void main(String args[]) {
     // dbSetup hides my username and password
     dbSetup my = new dbSetup();
@@ -140,7 +173,9 @@ public class jdbcpostgreSQL {
     vector.add(5);
     vector.add(6);
     vector.add(9);
-    updateOrdersAndOrderLineItemsTable(conn, vector, 5);
+    int newOrderId = getNewOrderId(conn);
+    updateOrdersAndOrderLineItemsTable(conn, vector, 5, newOrderId);
+    updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
 
     // remember to do conn.commit() in the end to update the actual table
     try {

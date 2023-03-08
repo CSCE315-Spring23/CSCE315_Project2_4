@@ -31,8 +31,9 @@
  */
 
 // Comment this package line out when compiling with command line
-package application;
+//package application;
 
+import java.util.Vector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -50,11 +51,12 @@ public class ServerController {
     @FXML private Button bbCheeseburger;
     @FXML private Button baconBBCheeseburger;
     @FXML private Button doubleBBCheeseburger;
+    private Vector<Integer> currOrder = new Vector<Integer>();
 
     public void initialize(){
-        hamburger.setOnAction(e -> addItemToOrder(currOrder ,1));
-        baconHamburger.setOnAction(e -> addItemToOrder(currOrder ,5));
-        doubleHamburger.setOnAction(e -> addItemToOrder(currOrder ,9));
+        hamburger.setOnAction(e -> addItemToOrder(1));
+        baconHamburger.setOnAction(e -> addItemToOrder(5));
+        doubleHamburger.setOnAction(e -> addItemToOrder(9));
         cheeseburger.setOnAction(e -> addItemToOrder(currOrder ,2));
         baconCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,6));
         doubleCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,10));
@@ -66,8 +68,12 @@ public class ServerController {
         doubleBBCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,12));
     }
 
-    private void addItemToOrder(List<int> orderItems, int menuItemId) {
-        orderItems.add(menuItemId);
+    private void addItemToOrder(int menuItemId) {
+        currOrder.add(menuItemId);
+    }
+
+    private void confirmOrder(){
+        currOrder = new Vector<Integer>();
     }
 }
 

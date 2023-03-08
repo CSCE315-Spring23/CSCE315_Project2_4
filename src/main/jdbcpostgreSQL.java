@@ -14,6 +14,20 @@ import java.math.RoundingMode;
 // javac *.java
 // java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
 public class jdbcpostgreSQL {
+  Connection conn;
+
+  public jdbcpostgreSQL(){
+    conn = new dbSetup().getConnection();
+  }
+  public void close(){
+    try {
+      conn.close();
+      System.out.println("Connection Closed.");
+    } catch (Exception e) {
+      System.out.println("Connection NOT Closed.");
+    } // end try catch
+  }
+
   public static float round(float d, int decimalPlace) {
     BigDecimal bd = new BigDecimal(Float.toString(d));
     bd = bd.setScale(decimalPlace, RoundingMode.HALF_UP);
@@ -190,7 +204,7 @@ public class jdbcpostgreSQL {
     }
   }
 
-  public static int getInventory(Connection conn, int ingredientID) {
+  public int getInventory(Connection conn, int ingredientID) {
     try {
       Statement stmt = conn.createStatement();
       String sqlStatement = "select * from inventory where ingredientID=" + Integer.toString(ingredientID);
@@ -206,21 +220,7 @@ public class jdbcpostgreSQL {
   }
 
   public static void main(String args[]) {
-    // dbSetup hides my username and password
-    dbSetup my = new dbSetup();
-    // Building the connection
-    Connection conn = null;
-    try {
-      conn = DriverManager.getConnection(
-          "jdbc:postgresql://csce-315-db.engr.tamu.edu/csce315331_team_4", my.user, my.pswd);
-      conn.setAutoCommit(false);
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.err.println(e.getClass().getName() + ": " + e.getMessage());
-      System.exit(0);
-    } // end try catch
-    System.out.println("Opened database successfully");
-
+    
     // // Create a vector if menu item id
     // Vector<Integer> vector = new Vector<Integer>();
     // vector.add(1);
@@ -246,12 +246,6 @@ public class jdbcpostgreSQL {
     // int currQty = getInventory(conn, ingredientID);
     // remember to do conn.commit() in the end to update the actual table
 
-    try {
-      conn.commit();
-      conn.close();
-      System.out.println("Connection Closed.");
-    } catch (Exception e) {
-      System.out.println("Connection NOT Closed.");
-    } // end try catch
+    
   }// end main
 }// end Class

@@ -41,7 +41,7 @@ public class jdbcpostgreSQL {
   * @returns newOrderID
   * @throws  exception if return of newOrderId fails
   */
-  public static int getNewOrderId(Connection conn) {
+  public int getNewOrderId() {
     // Get the maximum order_id + 1 to be the new order it
     try {
       Statement stmt = conn.createStatement();
@@ -63,7 +63,7 @@ public class jdbcpostgreSQL {
   * @returns newLineItemId 
   * @throws  exception if return of newLineItemId fails
   */
-  public static int getNewLineItemId(Connection conn) {
+  public int getNewLineItemId() {
     // Get the maximum order_id + 1 to be the new order it
     try {
       Statement stmt = conn.createStatement();
@@ -89,7 +89,7 @@ public class jdbcpostgreSQL {
   * @returns void
   * @throws  exception if function fails to create the sql statement to be inserted into order
   */
-  public static void updateOrdersAndOrderLineItemsTable(Connection conn, Vector<Integer> itemIDs, int employeeID,
+  public void updateOrdersAndOrderLineItemsTable(Vector<Integer> itemIDs, int employeeID,
       int newOrderId) {
     try {
       Statement stmt = conn.createStatement();
@@ -97,7 +97,7 @@ public class jdbcpostgreSQL {
       LocalDateTime orderTime = LocalDateTime.now();
 
       // Calculate the price & update orderlineitems table
-      int newLineItemId = getNewLineItemId(conn);
+      int newLineItemId = getNewLineItemId();
       float totalPrice = 0;
       for (int i = 0; i < itemIDs.size(); i++) {
         // Get menu item information
@@ -156,7 +156,7 @@ public class jdbcpostgreSQL {
     }
   }
 
-  public static void updateInventoryTransactionsAndInventoryTable(Connection conn, int newOrderId) {
+  public void updateInventoryTransactionsAndInventoryTable(int newOrderId) {
     try {
       Statement stmt = conn.createStatement();
       String sqlStatement = "insert into inventorytransactions (orderid,ordertime,ingredientid,qty) select o.orderid, o.ordertime, ii.ingredientid, sum(ii.qty) from orders o join orderlineitems oli on (oli.orderid=o.orderid) and (o.orderid="
@@ -178,20 +178,30 @@ public class jdbcpostgreSQL {
       }
 
       for (int i = 0; i < ingredients.size(); i++) {
-        String ingredientID = ingredients.elementAt(i);
-        sqlStatement = "update inventory set curramount = curramount-" + qty.elementAt(i) + " where ingredientid="
-            + ingredientID + ";";
-        System.out.println(sqlStatement);
-
-        stmt.executeUpdate(sqlStatement);
+        int ingredientID = Integer.valueOf(ingredients.elementAt(i));
+        int ingredientQty = Integer.valueOf(qty.elementAt(i));
+        subtractInventory(ingredientID, ingredientQty);
       }
-
+      
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
   }
 
-  public static void addInventory(Connection conn, int ingredientID, int qty) {
+  public void subtractInventory(int ingredientID, int qty) {
+    try {
+      Statement stmt = conn.createStatement();
+      String sqlStatement = "update inventory set curramount = curramount-" + Integer.toString(qty)
+          + " where ingredientid="
+          + Integer.toString(ingredientID) + ";";
+      System.out.println(sqlStatement);
+      stmt.executeUpdate(sqlStatement);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  public void addInventory(int ingredientID, int qty) {
     try {
       Statement stmt = conn.createStatement();
       String sqlStatement = "update inventory set curramount = curramount+" + Integer.toString(qty)
@@ -204,7 +214,7 @@ public class jdbcpostgreSQL {
     }
   }
 
-  public int getInventory(Connection conn, int ingredientID) {
+  public int getInventory(int ingredientID) {
     try {
       Statement stmt = conn.createStatement();
       String sqlStatement = "select * from inventory where ingredientID=" + Integer.toString(ingredientID);

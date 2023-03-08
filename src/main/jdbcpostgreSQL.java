@@ -152,7 +152,7 @@ public class jdbcpostgreSQL {
     }
   }
 
-  public static void addInventory(Connection conn, Integer ingredientID, Integer qty) {
+  public static void addInventory(Connection conn, int ingredientID, int qty) {
     try {
       Statement stmt = conn.createStatement();
       String sqlStatement = "update inventory set curramount = curramount+" + Integer.toString(qty)
@@ -163,6 +163,21 @@ public class jdbcpostgreSQL {
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
+  }
+
+  public static int getInventory(Connection conn, int ingredientID) {
+    try {
+      Statement stmt = conn.createStatement();
+      String sqlStatement = "select * from inventory where ingredientID=" + Integer.toString(ingredientID);
+      System.out.println(sqlStatement);
+      ResultSet r = stmt.executeQuery(sqlStatement);
+      r.next();
+      System.out.println("Current qty: " + Integer.toString(r.getInt(3)));
+      return r.getInt(3);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return 0;
   }
 
   public static void main(String args[]) {
@@ -198,13 +213,16 @@ public class jdbcpostgreSQL {
     // updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
 
     // Add more inventory given ingredientID and qty
-    // Integer ingredientID = 1;
-    // Integer qty = 100;
-    // addInventory(conn, ingredientID, qty);
+    int ingredientID = 1;
+    int qty = 100;
+    addInventory(conn, ingredientID, qty);
 
+    // Get inventory qty by ingredientID
+    int currQty = getInventory(conn, ingredientID);
     // remember to do conn.commit() in the end to update the actual table
+
     try {
-      // conn.commit();
+      conn.commit();
       conn.close();
       System.out.println("Connection Closed.");
     } catch (Exception e) {

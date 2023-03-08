@@ -1,0 +1,53 @@
+BasedOnStyle: Google
+
+IndentWidth: 4
+
+# public, private, protected are 4 spaces to the left of a class indent
+AccessModifierOffset: -4
+
+ColumnLimit: 125
+
+# Always break before braces.
+# BreakBeforeBraces: Allman
+
+# If false, the function's arguments will be on different lines if they don't
+# fit on one line.
+BinPackArguments: false
+
+# If false, a function declaration’s or function definition’s parameters
+# will either all be on the same line or will have one line each.
+BinPackParameters: false
+
+# Use at your own risk (diabled).
+ExperimentalAutoDetectBinPacking: false
+
+# Allow putting all parameters of a function declaration onto the next
+# line even if BinPackParameters is false.
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# If true, horizontally aligns arguments after an open bracket.
+# This applies to round brackets (parentheses), angle brackets and square
+# brackets.
+AlignAfterOpenBracket: AlwaysBreak
+
+# If true, horizontally align operands of binary and ternary expressions.
+AlignOperands: true
+
+# If a function call or braced initializer list doesn’t fit on a
+# line, allow putting all arguments onto the next line, even if
+# BinPackArguments is false.
+AllowAllArgumentsOnNextLine: false
+
+# If a constructor definition with a member initializer list doesn’t
+# fit on a single line, allow putting all member initializers onto
+# the next line, if `ConstructorInitializerAllOnOneLineOrOnePerLine`
+# is true. Note that this parameter has no effect if
+# `ConstructorInitializerAllOnOneLineOrOnePerLine` is false.
+AllowAllConstructorInitializersOnNextLine: false
+
+#  Force break after template declaration only when the following
+# declaration spans multiple lines.
+AlwaysBreakTemplateDeclarations: Yes
+
+# Break after return type automatically. PenaltyReturnTypeOnItsOwnLine is taken into account.
+AlwaysBreakAfterReturnType: None

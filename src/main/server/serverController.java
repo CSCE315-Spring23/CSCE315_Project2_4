@@ -34,15 +34,40 @@
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
+import javafx.scene.control.*;
 
 public class ServerController {
-    @FXML private Text actiontarget;
-    
-    @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-        actiontarget.setText("Sign in button pressed");
+    @FXML private Button hamburger;
+    @FXML private Button baconHamburger;
+    @FXML private Button doubleHamburger;
+    @FXML private Button cheeseburger;
+    @FXML private Button baconCheeseburger;
+    @FXML private Button doubleCheeseburger;
+    @FXML private Button bbHamburger;
+    @FXML private Button baconBBHamburger;
+    @FXML private Button doubleBBHamburger;
+    @FXML private Button bbCheeseburger;
+    @FXML private Button baconBBCheeseburger;
+    @FXML private Button doubleBBCheeseburger;
+
+    public void initialize(){
+        hamburger.setOnAction(e -> addItemToOrder(currOrder ,1));
+        baconHamburger.setOnAction(e -> addItemToOrder(currOrder ,5));
+        doubleHamburger.setOnAction(e -> addItemToOrder(currOrder ,9));
+        cheeseburger.setOnAction(e -> addItemToOrder(currOrder ,2));
+        baconCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,6));
+        doubleCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,10));
+        bbHamburger.setOnAction(e -> addItemToOrder(currOrder ,3));
+        baconBBHamburger.setOnAction(e -> addItemToOrder(currOrder ,7));
+        doubleBBHamburger.setOnAction(e -> addItemToOrder(currOrder ,11));
+        bbCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,4));
+        baconBBCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,8));
+        doubleBBCheeseburger.setOnAction(e -> addItemToOrder(currOrder ,12));
     }
 
+    private void addItemToOrder(List<int> orderItems, int menuItemId) {
+        orderItems.add(menuItemId);
+    }
 }
 
 /*
@@ -54,10 +79,7 @@ public class ServerController {
         }
 
         //button functions
-        private void addItemToOrder(int menuItemId) {
-            orderLineItem item = orderLineitem(menuItemId); //create oli object
-            o.addOrderItem(item);
-        }
+        
         
         }
 

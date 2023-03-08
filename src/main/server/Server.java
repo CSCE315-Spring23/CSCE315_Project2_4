@@ -1,4 +1,5 @@
-//package server;
+// Comment this package line out when compiling with command line
+package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;

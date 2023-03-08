@@ -20,6 +20,13 @@ public class jdbcpostgreSQL {
     return bd.floatValue();
   }
 
+  /*  Returns (current maximum Order ID + 1) as the
+  *   the new Order ID.
+  *
+  * @param   conn is the session instance of java to database
+  * @returns newOrderID
+  * @throws  exception if return of newOrderId fails
+  */
   public static int getNewOrderId(Connection conn) {
     // Get the maximum order_id + 1 to be the new order it
     try {
@@ -35,6 +42,13 @@ public class jdbcpostgreSQL {
     return -1;
   }
 
+  /*  Returns (current maximum Line Item ID + 1) as the
+  *   the new Line Item ID.
+  *
+  * @param   conn is the session instance of java to database
+  * @returns newLineItemId 
+  * @throws  exception if return of newLineItemId fails
+  */
   public static int getNewLineItemId(Connection conn) {
     // Get the maximum order_id + 1 to be the new order it
     try {
@@ -50,6 +64,17 @@ public class jdbcpostgreSQL {
     return -1;
   }
 
+  /*  Updates both orders tables by grabbing information from database,
+  *   calculating the price, inserting into orderLineItem, executing the
+  *   sqlStatement and then insert into orderTable.
+  *
+  * @param   conn is the session instance of java to database
+  * @param   itemIDs is a vector of all itemID's
+  * @param   employeeID is the current employee accessing the system
+  * @param   newOrderId is the order id to be pushed/updated
+  * @returns void
+  * @throws  exception if function fails to create the sql statement to be inserted into order
+  */
   public static void updateOrdersAndOrderLineItemsTable(Connection conn, Vector<Integer> itemIDs, int employeeID,
       int newOrderId) {
     try {

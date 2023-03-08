@@ -178,7 +178,7 @@ public class jdbcpostgreSQL {
     int newOrderId = getNewOrderId(conn);
     // Insert into order and orderlineitems table
     updateOrdersAndOrderLineItemsTable(conn, vector, 5, newOrderId);
-    // Insert into inventorytransactions and subtract from the inventory accordingly
+    // Update inventorytransactions and subtract from the inventory
     updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
 
     // remember to do conn.commit() in the end to update the actual table

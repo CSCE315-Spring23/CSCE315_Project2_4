@@ -168,18 +168,18 @@ public class jdbcpostgreSQL {
     } // end try catch
     System.out.println("Opened database successfully");
 
-    // Create a vector if menu item id
-    Vector<Integer> vector = new Vector<Integer>();
-    vector.add(1);
-    vector.add(5);
-    vector.add(6);
-    vector.add(9);
-    // Get the new order id
-    int newOrderId = getNewOrderId(conn);
-    // Insert into order and orderlineitems table
-    updateOrdersAndOrderLineItemsTable(conn, vector, 5, newOrderId);
-    // Update inventorytransactions and subtract from the inventory
-    updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
+    // // Create a vector if menu item id
+    // Vector<Integer> vector = new Vector<Integer>();
+    // vector.add(1);
+    // vector.add(5);
+    // vector.add(6);
+    // vector.add(9);
+    // // Get the new order id
+    // int newOrderId = getNewOrderId(conn);
+    // // Insert into order and orderlineitems table
+    // updateOrdersAndOrderLineItemsTable(conn, vector, 5, newOrderId);
+    // // Update inventorytransactions and subtract from the inventory
+    // updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
 
     // remember to do conn.commit() in the end to update the actual table
     try {

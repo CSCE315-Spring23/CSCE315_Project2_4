@@ -29,79 +29,309 @@
 -->
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox fx:controller="ServerController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ServerController">
    <children>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
-      <TabPane prefHeight="42.0" prefWidth="635.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Entrees">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="3.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Hamburger" onAction="#addItemToOrder" userData="1"/>
-                        <Button layoutX="197.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon Hamburger" onAction="#addItemToOrder" userData="5"/>
-                        <Button layoutX="393.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double Hamburger" onAction="#addItemToOrder" userData="9"/>
-                        <Button layoutX="3.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Cheeseburger" onAction="#addItemToOrder" userData="2"/>
-                        <Button layoutX="197.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon Cheeseburger" onAction="#addItemToOrder" userData="6"/>
-                        <Button layoutX="393.0" layoutY="82.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double Cheeseburger" onAction="#addItemToOrder" userData="10"/>
-                        <Button layoutX="3.0" layoutY="146.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="BB Hamburger" onAction="#addItemToOrder" userData="3"/>
-                        <Button layoutX="197.0" layoutY="146.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon BB Hamburger" onAction="#addItemToOrder" userData="7"/>
-                        <Button layoutX="393.0" layoutY="146.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double BB Hamburger" onAction="#addItemToOrder" userData="11"/>
-                        <Button layoutX="3.0" layoutY="208.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="BB Cheeseburger" onAction="#addItemToOrder" userData="4"/>
-                        <Button layoutX="197.0" layoutY="208.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Bacon BB Cheeseburger" onAction="#addItemToOrder" userData="8"/>
-                        <Button layoutX="393.0" layoutY="208.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Double BB Cheeseburger" onAction="#addItemToOrder" userData="12"/>
-                        <Button layoutX="3.0" layoutY="273.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" text="Confirm Order" onAction="#confirmOrder"/>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Combos">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" text="Hamburger Combo" />
-                        <Button layoutX="218.0" layoutY="14.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" text="Cheeseburger Combo" />
-                        <Button layoutX="432.0" layoutY="14.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="154.0" text="Cheeseburger w/ Bacon Combo" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Drinks">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="Fountain Drink" />
-                        <Button layoutX="211.0" layoutY="25.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="Shake" />
-                        <Button layoutX="408.0" layoutY="25.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="Rootbeer Float" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Sweets">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="Sugar Cookie (Sunday)" />
-                        <Button layoutX="224.0" layoutY="14.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="Chocolate Chip Cookie (Sunday)" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Sides">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="153.0" text="French Fries" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-        </tabs>
-      </TabPane>
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="580.0">
+         <children>
+            <TabPane prefHeight="431.0" prefWidth="635.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                  <Tab text="Combos">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="392.0" prefWidth="610.0">
+                           <children>
+                              <Button layoutX="4.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="126.0" text="Hamburger" textAlignment="CENTER" userData="38" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="131.0" text="Bacon Hamburger" textAlignment="CENTER" userData="42" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Double Hamburger" textAlignment="CENTER" userData="46" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="3.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="126.0" text="Cheeseburger" textAlignment="CENTER" userData="39" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="131.0" text="Bacon Cheeseburger" textAlignment="CENTER" userData="43" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="125.0" text="Double Cheeseburger" textAlignment="CENTER" userData="47" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="3.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="127.0" text="BB Hamburger" textAlignment="CENTER" userData="40" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="132.0" text="Bacon BB Hamburger" textAlignment="CENTER" userData="44" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="126.0" text="Double BB Hamburger" textAlignment="CENTER" userData="48" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="3.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="127.0" text="BB Cheeseburger" textAlignment="CENTER" userData="41" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="134.0" text="Bacon BB Cheeseburger" textAlignment="CENTER" userData="44" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="129.0" text="Double BB Cheeseburger" textAlignment="CENTER" userData="49" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon Double Hamburger" textAlignment="CENTER" userData="50" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon Double Cheeseburger" textAlignment="CENTER" userData="51" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon BB Double Hamburger" textAlignment="CENTER" userData="52" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon BB Double Cheeseburger" textAlignment="CENTER" userData="53" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Aggie Chicken Club" textAlignment="CENTER" userData="57" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="129.0" text="Spicy Grilled Chicken Sandwich" textAlignment="CENTER" userData="56" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="134.0" text="Grilled Chicken Sandwich" textAlignment="CENTER" userData="55" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="4.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="127.0" text="Gig'em Patty Melt" textAlignment="CENTER" userData="54" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="315.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="134.0" text="Chicken Philly Cheesesteak" textAlignment="CENTER" userData="58" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="315.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="129.0" text="3 Tender Basket" textAlignment="CENTER" userData="37" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                <Tab text="Entrees">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="4.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="126.0" text="Hamburger" textAlignment="CENTER" userData="1" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="131.0" text="Bacon Hamburger" textAlignment="CENTER" userData="5" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Double Hamburger" textAlignment="CENTER" userData="9" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="3.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="126.0" text="Cheeseburger" textAlignment="CENTER" userData="2" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="131.0" text="Bacon Cheeseburger" textAlignment="CENTER" userData="6" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="125.0" text="Double Cheeseburger" textAlignment="CENTER" userData="10" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="3.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="127.0" text="BB Hamburger" textAlignment="CENTER" userData="3" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="132.0" text="Bacon BB Hamburger" textAlignment="CENTER" userData="7" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="126.0" text="Double BB Hamburger" textAlignment="CENTER" userData="11" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="3.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="127.0" text="BB Cheeseburger" textAlignment="CENTER" userData="4" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="134.0" text="Bacon BB Cheeseburger" textAlignment="CENTER" userData="8" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="129.0" text="Double BB Cheeseburger" textAlignment="CENTER" userData="12" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="19.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon Double Hamburger" textAlignment="CENTER" userData="13" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="82.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon Double Cheeseburger" textAlignment="CENTER" userData="14" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="146.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon BB Double Hamburger" textAlignment="CENTER" userData="15" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Bacon BB Double Cheeseburger" textAlignment="CENTER" userData="16" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="449.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="124.0" text="Aggie Chicken Club" textAlignment="CENTER" userData="20" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="129.0" text="Spicy Grilled Chicken Sandwich" textAlignment="CENTER" userData="19" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="134.0" text="Grilled Chicken Sandwich" textAlignment="CENTER" userData="18" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="4.0" layoutY="262.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="127.0" text="Gig'em Patty Melt" textAlignment="CENTER" userData="17" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="150.0" layoutY="315.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="134.0" text="Chicken Philly Cheesesteak" textAlignment="CENTER" userData="21" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="303.0" layoutY="315.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="40.0" prefWidth="129.0" text="Chicken Caesar Salad" textAlignment="CENTER" userData="22" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Drinks">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="178.0" text="Fountain Drink" userData="24" />
+                              <Button layoutX="211.0" layoutY="25.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="178.0" text="Vanilla Shake" userData="30" />
+                              <Button layoutX="14.0" layoutY="93.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="178.0" text="Bottled Water" userData="25" />
+                              <Button layoutX="408.0" layoutY="25.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="178.0" text="Rootbeer Float" userData="34" />
+                              <Button layoutX="211.0" layoutY="93.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="178.0" text="Chocolate Shake" userData="31" />
+                              <Button layoutX="211.0" layoutY="161.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="178.0" text="Strawberry Shake" userData="32" />
+                              <Button layoutX="211.0" layoutY="229.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="178.0" text="Oreo Cookie Shake" userData="33" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Sweets">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="153.0" text="Sugar Cookie Sunday" userData="36" />
+                              <Button layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="153.0" text="Chocolate Chip Cookie Sunday" textAlignment="CENTER" userData="35" wrapText="true" />
+                              <Button layoutX="194.0" layoutY="14.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="153.0" text="Vanilla Ice Cream" userData="26" />
+                              <Button layoutX="194.0" layoutY="80.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="153.0" text="Chocolate Ice Cream" userData="27" />
+                              <Button layoutX="194.0" layoutY="145.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="153.0" text="Strawberry Ice Cream" userData="28" />
+                              <Button layoutX="194.0" layoutY="208.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="153.0" text="Oreo Cookie Ice Cream" userData="29" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Sides">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addItemToOrder" prefHeight="47.0" prefWidth="153.0" text="French Fries" userData="23" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Order">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button layoutX="433.0" layoutY="14.0" mnemonicParsing="false" onAction="#confirmOrder" prefHeight="47.0" prefWidth="153.0" text="Confirm Order" />
+                              <ScrollPane layoutX="14.0" layoutY="38.0" prefHeight="317.0" prefWidth="406.0" />
+                              <Label layoutX="25.0" layoutY="14.0" text="Current Order" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <Label layoutX="425.0" layoutY="10.0" text="Order Total:  $" />
+            <Label fx:id="totalPriceField" layoutX="503.0" layoutY="10.0" text="0.00" />
+         </children></AnchorPane>
    </children>
 </HBox>

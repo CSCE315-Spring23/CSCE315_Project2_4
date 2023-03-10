@@ -213,6 +213,29 @@ public class jdbcpostgreSQL {
     }
   }
 
+  public float getOrderTotal(Vector<Integer> itemIDs){
+    try{
+      Statement stmt = conn.createStatement();
+      float totalPrice = 0;
+      for (int i = 0; i < itemIDs.size(); i++) {
+        // Get menu item information
+        int itemID = itemIDs.elementAt(i);
+        String sqlStatement = "select name, menuPrice from MenuItems where menuItemID=" + Integer.toString(itemID);
+        ResultSet result = stmt.executeQuery(sqlStatement);
+        result.next();
+        Float itemPrice = round(result.getFloat(2), 2);
+
+        // Calculate the price
+        totalPrice += itemPrice;
+      }
+      // Round total price to 2 decimal places;
+      return round(totalPrice, 2);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return 0;
+  }
+
   public int getInventory(int ingredientID) {
     try {
       Statement stmt = conn.createStatement();

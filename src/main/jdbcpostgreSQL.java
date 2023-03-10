@@ -1,4 +1,3 @@
-
 // Java Backend postgress
 import java.sql.*;
 import java.time.*;
@@ -182,7 +181,7 @@ public class jdbcpostgreSQL {
         int ingredientQty = Integer.valueOf(qty.elementAt(i));
         subtractInventory(ingredientID, ingredientQty);
       }
-      
+
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }

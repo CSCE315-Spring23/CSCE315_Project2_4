@@ -9,15 +9,18 @@ public class ServerController {
     private Vector<Integer> currOrder = new Vector<Integer>();
     private ObservableList<String> currOrderNames = FXCollections.observableArrayList();
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
-    private int employeeID = 0; //TODO get session user's (employee) id
-    @FXML private Label totalPriceField;
-    @FXML private ListView<String> orderListView;
+    private int employeeID = 0; // TODO get session user's (employee) id
+    @FXML
+    private Label totalPriceField;
+    @FXML
+    private ListView<String> orderListView;
 
-    public void initialize(){
+    public void initialize() {
         orderListView.setItems(currOrderNames);
     }
 
-    @FXML private void addItemToOrder(ActionEvent event) {
+    @FXML
+    private void addItemToOrder(ActionEvent event) {
         Node node = (Node) event.getSource();
         String data = (String) node.getUserData();
         int menuID = Integer.parseInt(data);
@@ -26,14 +29,16 @@ public class ServerController {
         updateTotal(db.getOrderTotal(currOrder));
     }
 
-    @FXML private void removeItem(){
+    @FXML
+    private void removeItem() {
         int selectedIndex = orderListView.getSelectionModel().getSelectedIndex();
         currOrder.remove(selectedIndex);
         currOrderNames.remove(selectedIndex);
         updateTotal(db.getOrderTotal(currOrder));
     }
 
-    @FXML private void confirmOrder(){
+    @FXML
+    private void confirmOrder() {
         int orderID = db.getNewOrderId();
         db.updateOrdersAndOrderLineItemsTable(currOrder, employeeID, orderID);
         db.updateInventoryTransactionsAndInventoryTable(orderID);
@@ -42,26 +47,7 @@ public class ServerController {
         updateTotal(db.getOrderTotal(currOrder));
     }
 
-    private void updateTotal(float orderTotal){
-        totalPriceField.setText(String.format("%.2f",orderTotal));
+    private void updateTotal(float orderTotal) {
+        totalPriceField.setText(String.format("%.2f", orderTotal));
     }
-
-    
-
 }
-
-/*
-  * public class placeholderController {
-        @FXML private Button hamburger;
-
-        public void initialize(){
-            hamburger.setOnAction(e -> addItemToOrder(1));
-        }
-
-        //button functions
-        
-        
-        }
-
-    }
-  */

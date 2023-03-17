@@ -234,6 +234,23 @@ public class jdbcpostgreSQL {
       System.out.println(e.getMessage());
     }
     return 0;
+  } 
+
+  public String getItemName(int itemID){
+    try{
+      Statement stmt = conn.createStatement();
+      
+      // Get menu item name
+      String sqlStatement = "select name from MenuItems where menuItemID=" + Integer.toString(itemID);
+      ResultSet result = stmt.executeQuery(sqlStatement);
+      result.next();
+      String name = result.getString(1);
+
+      return name;
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+    return "";
   }
 
   public int getInventory(int ingredientID) {

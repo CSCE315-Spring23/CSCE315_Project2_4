@@ -8,7 +8,7 @@ public class Manager extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            HBox root = (HBox) FXMLLoader.load(getClass().getResource("managerView.fxml"));
+            HBox root = (HBox) FXMLLoader.load(getClass().getResource("manager.fxml"));
             Scene scene = new Scene(root, 600, 400);
             primaryStage.setScene(scene);
             primaryStage.show();

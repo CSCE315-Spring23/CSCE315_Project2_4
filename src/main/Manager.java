@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-// package server;
-
->>>>>>> e3a35979c5fd412aff0ed06d644858acf7a70e95
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

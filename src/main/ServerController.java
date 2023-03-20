@@ -35,6 +35,7 @@ public class ServerController {
         currOrder.remove(selectedIndex);
         currOrderNames.remove(selectedIndex);
         updateTotal(db.getOrderTotal(currOrder));
+        orderListView.getSelectionModel().clearSelection();
     }
 
     @FXML

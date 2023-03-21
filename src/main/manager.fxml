@@ -80,6 +80,7 @@
                         <DatePicker fx:id="dateExcessReport" onAction="#getDateExcessReport" layoutX="77.0" layoutY="12.0" />
                         <Label layoutX="39.0" layoutY="16.0" text="From" />
                         <Label layoutX="274.0" layoutY="17.0" text="to now." />
+                        <!-- <Button layoutX="350.0" layoutY="18.0" onAction="#clearDatePicker" text="Clear" /> -->
                      </children></AnchorPane>
                </content>
             </Tab>

@@ -34,11 +34,17 @@ public class ManagerController {
 
     @FXML
     private void getDateExcessReport(ActionEvent event) {
+        excessReportData.clear();
         Node node = (Node) event.getSource();
         LocalDate date = dateExcessReport.getValue();
-        System.out.println("Get date " + date.toString());
-        setTableResult(db.getExcessReport(date.toString()), excessReportData, excessReportTableView);
+        System.out.println("Get date " + date.toString() + " 00:00");
+        setTableResult(db.getExcessReport(date.toString() + " 00:00:00"), excessReportData, excessReportTableView);
     }
+
+    // @FXML
+    // private void clearDatePicker(ActionEvent event) {
+    // excessReportData = FXCollections.observableArrayList();
+    // }
 
     @FXML
     private void openServerView(ActionEvent event) {

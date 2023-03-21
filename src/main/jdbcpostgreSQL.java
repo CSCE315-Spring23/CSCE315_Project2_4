@@ -3,6 +3,7 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.*;
+import java.sql.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -38,9 +39,9 @@ public class jdbcpostgreSQL {
      * the new Order ID.
      *
      * @param conn is the session instance of java to database
-     * 
+     *
      * @returns newOrderID
-     * 
+     *
      * @throws exception if return of newOrderId fails
      */
     public int getNewOrderId() {
@@ -63,9 +64,9 @@ public class jdbcpostgreSQL {
      * the new Line Item ID.
      *
      * @param conn is the session instance of java to database
-     * 
+     *
      * @returns newLineItemId
-     * 
+     *
      * @throws exception if return of newLineItemId fails
      */
     public int getNewLineItemId() {
@@ -89,15 +90,15 @@ public class jdbcpostgreSQL {
      * sqlStatement and then insert into orderTable.
      *
      * @param conn is the session instance of java to database
-     * 
+     *
      * @param itemIDs is a vector of all itemID's
-     * 
+     *
      * @param employeeID is the current employee accessing the system
-     * 
+     *
      * @param newOrderId is the order id to be pushed/updated
-     * 
+     *
      * @returns void
-     * 
+     *
      * @throws exception if function fails to create the sql statement to be
      * inserted into order
      */
@@ -113,8 +114,7 @@ public class jdbcpostgreSQL {
             for (int i = 0; i < itemIDs.size(); i++) {
                 // Get menu item information
                 int itemID = itemIDs.elementAt(i);
-                String sqlStatement = "select name, menuPrice from MenuItems where menuItemID="
-                        + Integer.toString(itemID);
+                String sqlStatement = "select name, menuPrice from MenuItems where menuItemID=" + Integer.toString(itemID);
                 ResultSet result = stmt.executeQuery(sqlStatement);
                 result.next();
                 String name = result.getString("name");
@@ -132,12 +132,12 @@ public class jdbcpostgreSQL {
 
                 // Insert into orderlineitem
                 sqlStatement = String.format(
-                        "insert into orderlineitems values (%s, %s, %s, %s)",
-                        Integer.toString(newLineItemId),
-                        Integer.toString(itemID),
-                        Float.toString(itemPrice),
+                    "insert into orderlineitems values (%s, %s, %s, %s)",
+                    Integer.toString(newLineItemId),
+                    Integer.toString(itemID),
+                    Float.toString(itemPrice),
 
-                        Integer.toString(newOrderId));
+                    Integer.toString(newOrderId));
                 System.out.println(sqlStatement);
                 System.out.println();
 
@@ -160,11 +160,11 @@ public class jdbcpostgreSQL {
             String formattedDateTime = orderTime.format(dateTimeFormatter);
             // Generate sql statement to insert into order
             String sqlStatement = String.format(
-                    "insert into orders values (%s, '%s', %s, %s)",
-                    Integer.toString(newOrderId),
-                    formattedDateTime,
-                    Float.toString(totalPrice),
-                    Integer.toString(employeeID));
+                "insert into orders values (%s, '%s', %s, %s)",
+                Integer.toString(newOrderId),
+                formattedDateTime,
+                Float.toString(totalPrice),
+                Integer.toString(employeeID));
             System.out.println(sqlStatement);
             System.out.println();
             stmt.executeUpdate(sqlStatement);
@@ -177,9 +177,10 @@ public class jdbcpostgreSQL {
     public void updateInventoryTransactionsAndInventoryTable(int newOrderId) {
         try {
             Statement stmt = conn.createStatement();
-            String sqlStatement = "insert into inventorytransactions (orderid,ordertime,ingredientid,qty) select o.orderid, o.ordertime, ii.ingredientid, sum(ii.qty) from orders o join orderlineitems oli on (oli.orderid=o.orderid) and (o.orderid="
-                    + Integer.toString(newOrderId)
-                    + ") join itemingredients ii on (ii.menuitemid=oli.menuitemid) group by 1,2,3;";
+            String sqlStatement =
+                "insert into inventorytransactions (orderid,ordertime,ingredientid,qty) select o.orderid, o.ordertime, ii.ingredientid, sum(ii.qty) from orders o join orderlineitems oli on (oli.orderid=o.orderid) and (o.orderid="
+                + Integer.toString(newOrderId)
+                + ") join itemingredients ii on (ii.menuitemid=oli.menuitemid) group by 1,2,3;";
             System.out.println(sqlStatement);
             stmt.executeUpdate(sqlStatement);
 
@@ -210,7 +211,7 @@ public class jdbcpostgreSQL {
         try {
             Statement stmt = conn.createStatement();
             String sqlStatement = "update inventory set curramount = curramount-" + Integer.toString(qty)
-                    + " where ingredientid=" + Integer.toString(ingredientID) + ";";
+                                  + " where ingredientid=" + Integer.toString(ingredientID) + ";";
             System.out.println(sqlStatement);
             stmt.executeUpdate(sqlStatement);
         } catch (Exception e) {
@@ -222,7 +223,7 @@ public class jdbcpostgreSQL {
         try {
             Statement stmt = conn.createStatement();
             String sqlStatement = "update inventory set curramount = curramount+" + Integer.toString(qty)
-                    + " where ingredientid=" + Integer.toString(ingredientID) + ";";
+                                  + " where ingredientid=" + Integer.toString(ingredientID) + ";";
             System.out.println(sqlStatement);
             stmt.executeUpdate(sqlStatement);
         } catch (Exception e) {
@@ -237,8 +238,7 @@ public class jdbcpostgreSQL {
             for (int i = 0; i < itemIDs.size(); i++) {
                 // Get menu item information
                 int itemID = itemIDs.elementAt(i);
-                String sqlStatement = "select name, menuPrice from MenuItems where menuItemID="
-                        + Integer.toString(itemID);
+                String sqlStatement = "select name, menuPrice from MenuItems where menuItemID=" + Integer.toString(itemID);
                 ResultSet result = stmt.executeQuery(sqlStatement);
                 result.next();
                 Float itemPrice = round(result.getFloat(2), 2);
@@ -300,6 +300,7 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+
     public ResultSet getExcessReport(String date) {
         ResultSet r = null;
         try {
@@ -323,7 +324,32 @@ public class jdbcpostgreSQL {
         return r;
     }
 
-    public static void main(String[] args) {
+    public ResultSet getMenu() {
+        ResultSet r = null;
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "SELECT * from menuitems";
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
+        return r;
     }
+
+    /*
+     * Given a time window, display the sales by item from the order history.
+     */
+    public ResultSet getSalesReport(Date startTime, Date endTime) {
+        ResultSet r = null;
+        try {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return r;
+    }
+
+    public static void main(String[] args) {}
 } // end Class

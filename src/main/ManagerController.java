@@ -30,7 +30,6 @@ public class ManagerController {
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
-        setTableResult(db.getExcessReport(), excessReportData, excessReportTableView);
     }
 
     @FXML
@@ -38,6 +37,7 @@ public class ManagerController {
         Node node = (Node) event.getSource();
         LocalDate date = dateExcessReport.getValue();
         System.out.println("Get date " + date.toString());
+        setTableResult(db.getExcessReport(date.toString()), excessReportData, excessReportTableView);
     }
 
     @FXML

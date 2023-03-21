@@ -300,7 +300,7 @@ public class jdbcpostgreSQL {
         return r;
     }
 
-    public ResultSet getExcessReport() {
+    public ResultSet getExcessReport(String date) {
         ResultSet r = null;
         try {
             Statement stmt = conn.createStatement();

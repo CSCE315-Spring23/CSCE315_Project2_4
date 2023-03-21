@@ -9,6 +9,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -128,6 +130,19 @@
                            </font>
                         </Label>
                         <Separator layoutX="585.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="5.0" />
+                        <Label layoutX="598.0" layoutY="48.0" text="New Item Name" />
+                        <TextField layoutX="598.0" layoutY="65.0" />
+                        <Label layoutX="598.0" layoutY="104.0" text="New Item Price " />
+                        <Label layoutX="599.0" layoutY="154.0" text="New Item Class" />
+                        <TextField layoutX="617.0" layoutY="121.0" prefHeight="26.0" prefWidth="121.0" />
+                        <Label layoutX="609.0" layoutY="126.0" text="\$" />
+                        <TextField layoutX="599.0" layoutY="171.0" prefHeight="26.0" prefWidth="91.0" />
+                        <TextArea editable="false" layoutX="706.0" layoutY="170.0" prefHeight="79.0" prefWidth="63.0" text="1) Combo&#10;2) Entree&#10;3) Drink&#10;4) Sweet&#10;5) Side">
+                           <font>
+                              <Font size="11.0" />
+                           </font>
+                        </TextArea>
+                        <Button layoutX="659.0" layoutY="400.0" mnemonicParsing="false" text="Add New Menu Item" />
                      </children>
                   </AnchorPane>
                </content>

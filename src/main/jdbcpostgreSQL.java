@@ -313,23 +313,17 @@ public class jdbcpostgreSQL {
         }
         return table;
     }
-    
-    public Vector<String> getStockReport(){
-        Vector<String> restockTable = new Vector<String>(300);
+
+    public Vector<Vector<String>> getStockReport() {
+        Vector<Vector<String>> restockTable = new Vector<Vector<String>>();
         try {
             Statement stmt = conn.createStatement();
             String sqlStatement = "SELECT * from inventory WHERE CURRAMOUNT <= MINAMOUNT";
             System.out.println(sqlStatement);
             ResultSet r = stmt.executeQuery(sqlStatement);
-            
-            while(r.next()) {
-                restockTable.add(Integer.toString(r.getInt(0))); //grab ingredientID
-                restockTable.add(Integer.toString(r.getInt(1))); //grab ingredientName 
-                restockTable.add(Integer.toString(r.getInt(2))); //grab currAmount
-                restockTable.add(Integer.toString(r.getInt(3))); //grab Unit
-                restockTable.add(Integer.toString(r.getInt(4))); //grab minAmount
-                restockTable.add(Integer.toString(r.getInt(5))); //grab Cost
-            }
+
+            restockTable = getInventoryTableResult(r);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

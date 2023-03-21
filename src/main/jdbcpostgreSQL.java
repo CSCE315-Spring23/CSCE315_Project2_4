@@ -327,6 +327,21 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    public ResultSet getMenu() {
+        ResultSet r = null;
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "SELECT * from menuitems";
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return r;
+    }
+
     public static void main(String[] args) {
 
     }

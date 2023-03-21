@@ -15,14 +15,18 @@ public class ManagerController {
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
     ObservableList<ObservableList<String>> inventoryData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> restockReportData = FXCollections.observableArrayList();
+    ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
     @FXML
     private TableView inventoryTableView;
     @FXML
     private TableView restockReportTableView;
+    @FXML
+    private TableView menuTableView;
 
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
+        setTableResult(db.getMenu(), menuData, menuTableView);
     }
 
     @FXML

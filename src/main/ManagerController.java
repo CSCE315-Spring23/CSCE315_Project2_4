@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.Vector;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -14,6 +15,13 @@ public class ManagerController {
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
     ObservableList<ObservableList<String>> inventoryData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> restockReportData = FXCollections.observableArrayList();
+    ObservableList<ObservableList<String>> excessReportData = FXCollections.observableArrayList();
+    
+    @FXML
+    private TableView inventoryTableView;
+    @FXML
+    private TableView restockReportTableView;
+
     ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> salesReportData = FXCollections.observableArrayList();
 
@@ -26,11 +34,26 @@ public class ManagerController {
     @FXML private TableView menuTableView;
     @FXML private TableView salesReportTableView;
 
+    @FXML
+    private TableView excessReportTableView;
+    @FXML
+    DatePicker dateExcessReport;
+
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
         setTableResult(db.getMenu(), menuData, menuTableView);
         // db.getSalesReport(null, null);
+    }
+
+    @FXML
+    private void getDateExcessReport(ActionEvent event) {
+        excessReportTableView.getItems().clear();
+        excessReportTableView.getColumns().clear();
+        Node node = (Node) event.getSource();
+        LocalDate date = dateExcessReport.getValue();
+        System.out.println("Get date " + date.toString() + " 00:00");
+        setTableResult(db.getExcessReport(date.toString() + " 00:00:00"), excessReportData, excessReportTableView);
     }
 
     @FXML

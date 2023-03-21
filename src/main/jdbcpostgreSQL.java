@@ -300,6 +300,30 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+
+    public ResultSet getExcessReport(String date) {
+        ResultSet r = null;
+        try {
+            // Get the time
+            LocalDateTime dateTimeRightNow = LocalDateTime.now();
+            // Create DateTimeFormatter instance with specified format
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            // Format LocalDateTime to String
+            String formattedDateTime = dateTimeRightNow.format(dateTimeFormatter);
+
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "select distinct inventory.ingredientID, inventory.name, inventory.currAmount, inventory.unit, inventory.minAmount, inventory.cost from inventory join inventorytransactions on inventory.ingredientid = inventorytransactions.ingredientid where inventorytransactions.ordertime between '"
+                    + date + "' AND '" + formattedDateTime + "' and inventory.curramount > inventory.minamount * 0.9;";
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return r;
+    }
+
     public ResultSet getMenu() {
         ResultSet r = null;
         try {
@@ -307,7 +331,6 @@ public class jdbcpostgreSQL {
             String sqlStatement = "SELECT * from menuitems";
             System.out.println(sqlStatement);
             r = stmt.executeQuery(sqlStatement);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

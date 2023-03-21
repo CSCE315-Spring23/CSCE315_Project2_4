@@ -53,6 +53,7 @@ public class ManagerController {
                         });
                 table.getColumns().addAll(newCol);
             }
+            table.getColumns().remove(0);
 
             while (r.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();

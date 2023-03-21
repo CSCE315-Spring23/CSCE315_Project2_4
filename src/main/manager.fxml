@@ -38,8 +38,7 @@
                         <Label layoutX="263.0" layoutY="16.0" text="End:" />
                         <TableView layoutX="14.0" layoutY="47.0" prefHeight="306.0" prefWidth="551.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -51,8 +50,7 @@
                      <children>
                         <TableView layoutX="14.0" layoutY="14.0" prefHeight="335.0" prefWidth="552.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -64,8 +62,7 @@
                      <children>
                         <TableView layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="542.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -77,8 +74,7 @@
                      <children>
                         <TableView layoutX="14.0" layoutY="43.0" prefHeight="311.0" prefWidth="549.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
                         <DatePicker layoutX="77.0" layoutY="12.0" />
@@ -93,6 +89,7 @@
                      <children>
                         <TableView fx:id="restockReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="337.0" prefWidth="547.0">
                           <columns>
+                          <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
                      </children>
@@ -104,7 +101,9 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <TableView fx:id="inventoryTableView" layoutX="14.0" layoutY="14.0" prefHeight="346.0" prefWidth="494.0">
-                          <columns></columns>
+                          <columns>
+                          <TableColumn prefWidth="0" text="" />
+                          </columns>
                         </TableView>
                      </children>
                   </AnchorPane>
@@ -116,8 +115,7 @@
                      <children>
                         <TableView layoutX="14.0" layoutY="14.0" prefHeight="338.0" prefWidth="476.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
                      </children>

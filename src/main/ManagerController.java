@@ -30,19 +30,6 @@ public class ManagerController {
 
     @FXML
     private void openServerView(ActionEvent event) {
-        // Maybe try using processBuilder?
-        // try {
-        //     ProcessBuilder pb = new ProcessBuilder(
-        //         "java",
-        //         "--module-path",
-        //         "../javafx-sdk-19.02.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml");
-        //     pb.command().add("Server");
-        //     Process theProcess = pb.start();
-        // } catch (Exception e) {
-        //     System.err.println("Failed to open Server View");
-        //     e.printStackTrace();
-        // }
-
         System.out.println("Manager has tried to open the Server View");
         try {
             Process theProcess = Runtime.getRuntime().exec(

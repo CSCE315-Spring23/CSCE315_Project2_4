@@ -3,6 +3,7 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.*;
+import java.sql.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -317,20 +318,9 @@ public class jdbcpostgreSQL {
     /*
      * Given a time window, display the sales by item from the order history.
      */
-    public ResultSet getSalesReport(LocalDateTime startTime, LocalDateTime endTime) {
+    public ResultSet getSalesReport(Date startTime, Date endTime) {
         ResultSet r = null;
         try {
-            Statement stmt = conn.createStatement();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            String formattedStartTime = startTime.format(dateTimeFormatter);
-            String formattedEndTime = endTime.format(dateTimeFormatter);
-            String sqlStatement =
-                "SELECT m.name, sum(oli.qty) FROM orders o JOIN orderlineitems oli ON o.orderid = oli.orderid JOIN menuitems m ON oli.menuitemid = m.menuitemid WHERE o.ordertime BETWEEN '"
-                + formattedStartTime + "' AND '" + formattedEndTime + "' GROUP BY m.name";
-            System.out.println(sqlStatement);
-            r = stmt.executeQuery(sqlStatement);
-            System.out.println(r);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

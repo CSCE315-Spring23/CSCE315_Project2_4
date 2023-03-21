@@ -17,9 +17,14 @@ public class ManagerController {
     ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> salesReportData = FXCollections.observableArrayList();
 
+    // Create DatePickers
+    @FXML private DatePicker startDatePicker;
+    @FXML private DatePicker endDatePicker;
+
     @FXML private TableView inventoryTableView;
     @FXML private TableView restockReportTableView;
     @FXML private TableView menuTableView;
+    @FXML private TableView salesReportTableView;
 
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
@@ -39,6 +44,17 @@ public class ManagerController {
             System.err.println("Failed to open Server View");
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void generateSalesReport(ActionEvent event) {
+        System.out.println("Manager has tried to generate a Sales Report");
+
+        System.out.print("Start Date: " + startDatePicker.getValue());
+        System.out.println(" End Date: " + endDatePicker.getValue());
+        // Date startDate = Date.valueOf(startDatePicker.getValue());
+        // Date endDate = Date.valueOf(endDatePicker.getValue());
+        // setTableResult(db.getSalesReport(startDate, endDate), salesReportData, salesReportTableView);
     }
 
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {

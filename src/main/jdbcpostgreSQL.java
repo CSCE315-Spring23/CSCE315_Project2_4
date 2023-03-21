@@ -273,46 +273,48 @@ public class jdbcpostgreSQL {
         return "";
     }
 
-    public int getInventory(int ingredientID) {
+    public void getInventoryTable() {
         try {
             Statement stmt = conn.createStatement();
-            String sqlStatement = "select * from inventory where ingredientID=" + Integer.toString(ingredientID);
+            String sqlStatement = "select * from inventory order by ingredientid";
             System.out.println(sqlStatement);
             ResultSet r = stmt.executeQuery(sqlStatement);
-            r.next();
-            System.out.println("Current qty: " + Integer.toString(r.getInt(3)));
-            return r.getInt(3);
+            Vector<Vector<String>> table = getInventoryTableResult(r);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return 0;
     }
 
-    public static void main(String args[]) {
-        // // Create a vector if menu item id
-        // Vector<Integer> vector = new Vector<Integer>();
-        // vector.add(1);
-        // vector.add(5);
-        // vector.add(6);
-        // vector.add(9);
+    private Vector<Vector<String>> getInventoryTableResult(ResultSet r) {
+        Vector<Vector<String>> table = new Vector<Vector<String>>();
+        Vector<String> id = new Vector<String>();
+        Vector<String> name = new Vector<String>();
+        Vector<String> currAmt = new Vector<String>();
+        Vector<String> unit = new Vector<String>();
+        Vector<String> minAmt = new Vector<String>();
+        Vector<String> cost = new Vector<String>();
+        try {
+            while (r.next()) {
+                id.add(r.getString(1));
+                name.add(r.getString(2));
+                currAmt.add(r.getString(3));
+                unit.add(r.getString(4));
+                minAmt.add(r.getString(5));
+                cost.add(r.getString(6));
+            }
+            table.add(id);
+            table.add(name);
+            table.add(currAmt);
+            table.add(unit);
+            table.add(minAmt);
+            table.add(cost);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return table;
+    }
 
-        // // Get the new order id
-        // int newOrderId = getNewOrderId(conn);
+    public static void main(String[] args) {
 
-        // // Insert into order and orderlineitems table
-        // updateOrdersAndOrderLineItemsTable(conn, vector, 5, newOrderId);
-
-        // // Update inventorytransactions and subtract from the inventory
-        // updateInventoryTransactionsAndInventoryTable(conn, newOrderId);
-
-        // Add more inventory given ingredientID and qty
-        // int ingredientID = 1;
-        // int qty = 100;
-        // addInventory(conn, ingredientID, qty);
-
-        // // Get inventory qty by ingredientID
-        // int currQty = getInventory(conn, ingredientID);
-        // remember to do conn.commit() in the end to update the actual table
-
-    } // end main
+    }
 } // end Class

@@ -20,6 +20,6 @@ public class ManagerController {
             System.err.println("Failed to open Server View");
             e.printStackTrace();
         }
-
     }
+
 }

@@ -254,6 +254,16 @@ public class jdbcpostgreSQL {
         return 0;
     }
 
+    /*
+     * Returns Menu Item Name given an Item ID through execution
+     * of a query statement
+     * 
+     * @param itemID a menu item id
+     * 
+     * @returns name 
+     * 
+     * @throws exception if query fails to run
+     */
     public String getItemName(int itemID) {
         try {
             Statement stmt = conn.createStatement();
@@ -271,6 +281,14 @@ public class jdbcpostgreSQL {
         return "";
     }
 
+    /*
+     * Returns ResultSet (psql table data) from query
+     * which asks for the whole inventory by ingredientID
+     * 
+     * @returns r 
+     * 
+     * @throws exception if query fails to run
+     */
     public ResultSet getInventory() {
         ResultSet r = null;
         try {
@@ -285,6 +303,15 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /*
+     * Returns ResultSet (psql table data) from query
+     * which asks for any inventory item that is in need
+     * of restock
+     * 
+     * @returns r 
+     * 
+     * @throws exception if query fails to run
+     */
     public ResultSet getRestockReport() {
         ResultSet r = null;
         try {

@@ -93,8 +93,7 @@
                      <children>
                         <TableView layoutX="14.0" layoutY="14.0" prefHeight="337.0" prefWidth="547.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="75.0" text="Needed Restock" />
                           </columns>
                         </TableView>
                      </children>

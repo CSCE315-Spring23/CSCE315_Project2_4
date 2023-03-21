@@ -1,14 +1,13 @@
-import java.util.Vector;
 import java.sql.*;
-
+import java.util.Vector;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellDataFeatures;
-import javafx.collections.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.util.Callback;
 
 public class ManagerController {
@@ -16,25 +15,38 @@ public class ManagerController {
     ObservableList<ObservableList<String>> inventoryData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> restockReportData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
-    @FXML
-    private TableView inventoryTableView;
-    @FXML
-    private TableView restockReportTableView;
-    @FXML
-    private TableView menuTableView;
+    ObservableList<ObservableList<String>> salesReportData = FXCollections.observableArrayList();
+
+    @FXML private TableView inventoryTableView;
+    @FXML private TableView restockReportTableView;
+    @FXML private TableView menuTableView;
 
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
         setTableResult(db.getMenu(), menuData, menuTableView);
+        // db.getSalesReport(null, null);
     }
 
     @FXML
     private void openServerView(ActionEvent event) {
+        // Maybe try using processBuilder?
+        // try {
+        //     ProcessBuilder pb = new ProcessBuilder(
+        //         "java",
+        //         "--module-path",
+        //         "../javafx-sdk-19.02.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml");
+        //     pb.command().add("Server");
+        //     Process theProcess = pb.start();
+        // } catch (Exception e) {
+        //     System.err.println("Failed to open Server View");
+        //     e.printStackTrace();
+        // }
+
         System.out.println("Manager has tried to open the Server View");
         try {
             Process theProcess = Runtime.getRuntime().exec(
-                    "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
+                "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
             System.out.println("Server View Opened Sucessfully");
         } catch (Exception e) {
             System.err.println("Failed to open Server View");
@@ -50,11 +62,11 @@ public class ManagerController {
                 String colName = r.getMetaData().getColumnName(j + 1);
                 TableColumn newCol = new TableColumn(colName);
                 newCol.setCellValueFactory(
-                        new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
-                            public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
-                                return new SimpleStringProperty(param.getValue().get(j).toString());
-                            }
-                        });
+                    new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                        public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                            return new SimpleStringProperty(param.getValue().get(j).toString());
+                        }
+                    });
                 table.getColumns().addAll(newCol);
             }
             table.getColumns().remove(0);
@@ -73,5 +85,4 @@ public class ManagerController {
             System.out.println(e.getMessage());
         }
     }
-
 }

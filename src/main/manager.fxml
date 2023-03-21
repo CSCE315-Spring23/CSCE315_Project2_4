@@ -91,9 +91,8 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="337.0" prefWidth="547.0">
+                        <TableView fx:id="restockReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="337.0" prefWidth="547.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Needed Restock" />
                           </columns>
                         </TableView>
                      </children>
@@ -104,11 +103,8 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="346.0" prefWidth="494.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
-                          </columns>
+                        <TableView fx:id="inventoryTableView" layoutX="14.0" layoutY="14.0" prefHeight="346.0" prefWidth="494.0">
+                          <columns></columns>
                         </TableView>
                      </children>
                   </AnchorPane>

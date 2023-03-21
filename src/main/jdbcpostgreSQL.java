@@ -7,8 +7,6 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-// import javax.swing.JOptionPane;
-
 // Command to run on Mac:
 // cd src/main
 // javac *.java
@@ -273,62 +271,33 @@ public class jdbcpostgreSQL {
         return "";
     }
 
-    public void getInventoryTable() {
+    public ResultSet getInventory() {
+        ResultSet r = null;
         try {
             Statement stmt = conn.createStatement();
             String sqlStatement = "select * from inventory order by ingredientid";
             System.out.println(sqlStatement);
-            ResultSet r = stmt.executeQuery(sqlStatement);
-            Vector<Vector<String>> table = getInventoryTableResult(r);
+            r = stmt.executeQuery(sqlStatement);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        return r;
     }
 
-    private Vector<Vector<String>> getInventoryTableResult(ResultSet r) {
-        Vector<Vector<String>> table = new Vector<Vector<String>>();
-        Vector<String> id = new Vector<String>();
-        Vector<String> name = new Vector<String>();
-        Vector<String> currAmt = new Vector<String>();
-        Vector<String> unit = new Vector<String>();
-        Vector<String> minAmt = new Vector<String>();
-        Vector<String> cost = new Vector<String>();
-        try {
-            while (r.next()) {
-                id.add(r.getString(1));
-                name.add(r.getString(2));
-                currAmt.add(r.getString(3));
-                unit.add(r.getString(4));
-                minAmt.add(r.getString(5));
-                cost.add(r.getString(6));
-            }
-            table.add(id);
-            table.add(name);
-            table.add(currAmt);
-            table.add(unit);
-            table.add(minAmt);
-            table.add(cost);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return table;
-    }
-
-    public Vector<Vector<String>> getStockReport() {
-        Vector<Vector<String>> restockTable = new Vector<Vector<String>>();
+    public ResultSet getRestockReport() {
+        ResultSet r = null;
         try {
             Statement stmt = conn.createStatement();
             String sqlStatement = "SELECT * from inventory WHERE CURRAMOUNT <= MINAMOUNT";
             System.out.println(sqlStatement);
-            ResultSet r = stmt.executeQuery(sqlStatement);
-
-            restockTable = getInventoryTableResult(r);
+            r = stmt.executeQuery(sqlStatement);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        return restockTable;
+        return r;
     }
 
     public static void main(String[] args) {

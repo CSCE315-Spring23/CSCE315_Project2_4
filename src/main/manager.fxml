@@ -72,12 +72,12 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="43.0" prefHeight="311.0" prefWidth="549.0">
+                        <TableView fx:id="excessReportTableView" layoutX="14.0" layoutY="43.0" prefHeight="311.0" prefWidth="549.0">
                           <columns>
                             <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
-                        <DatePicker layoutX="77.0" layoutY="12.0" />
+                        <DatePicker fx:id="dateExcessReport" onAction="#getDateExcessReport" layoutX="77.0" layoutY="12.0" />
                         <Label layoutX="39.0" layoutY="16.0" text="From" />
                         <Label layoutX="274.0" layoutY="17.0" text="to now." />
                      </children></AnchorPane>

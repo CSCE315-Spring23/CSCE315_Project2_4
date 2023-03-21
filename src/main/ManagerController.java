@@ -1,5 +1,6 @@
 import java.util.Vector;
 import java.sql.*;
+import java.time.LocalDate;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,14 +16,28 @@ public class ManagerController {
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
     ObservableList<ObservableList<String>> inventoryData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> restockReportData = FXCollections.observableArrayList();
+    ObservableList<ObservableList<String>> excessReportData = FXCollections.observableArrayList();
     @FXML
     private TableView inventoryTableView;
     @FXML
     private TableView restockReportTableView;
 
+    @FXML
+    private TableView excessReportTableView;
+    @FXML
+    DatePicker dateExcessReport;
+
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
+        setTableResult(db.getExcessReport(), excessReportData, excessReportTableView);
+    }
+
+    @FXML
+    private void getDateExcessReport(ActionEvent event) {
+        Node node = (Node) event.getSource();
+        LocalDate date = dateExcessReport.getValue();
+        System.out.println("Get date " + date.toString());
     }
 
     @FXML
@@ -31,6 +46,9 @@ public class ManagerController {
         try {
             Process theProcess = Runtime.getRuntime().exec(
                     "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
+            // Process theProcess = Runtime.getRuntime().exec(
+            // "java --module-path /Users/anhnguyen/javafx-sdk-19.0.2.1/lib --add-modules
+            // javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
             System.out.println("Server View Opened Sucessfully");
         } catch (Exception e) {
             System.err.println("Failed to open Server View");

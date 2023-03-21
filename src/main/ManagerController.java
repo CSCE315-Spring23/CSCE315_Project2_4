@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.collections.*;
 
 public class ManagerController {
+    private jdbcpostgreSQL db = new jdbcpostgreSQL();
     public void initialize() {
     }
 
@@ -21,5 +22,9 @@ public class ManagerController {
             e.printStackTrace();
         }
     }
+
+    private void restockReport() {
+    Vector<String> restockTable = db.getStockReport();
+}
 
 }

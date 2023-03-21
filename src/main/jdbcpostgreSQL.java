@@ -300,7 +300,6 @@ public class jdbcpostgreSQL {
         return r;
     }
 
-
     public ResultSet getExcessReport(String date) {
         ResultSet r = null;
         try {
@@ -312,8 +311,9 @@ public class jdbcpostgreSQL {
             String formattedDateTime = dateTimeRightNow.format(dateTimeFormatter);
 
             Statement stmt = conn.createStatement();
-            String sqlStatement = "select distinct inventory.ingredientID, inventory.name, inventory.currAmount, inventory.unit, inventory.minAmount, inventory.cost from inventory join inventorytransactions on inventory.ingredientid = inventorytransactions.ingredientid where inventorytransactions.ordertime between '"
-                    + date + "' AND '" + formattedDateTime + "' and inventory.curramount > inventory.minamount * 0.9;";
+            String sqlStatement =
+                "select distinct inventory.ingredientID, inventory.name, inventory.currAmount, inventory.unit, inventory.minAmount, inventory.cost from inventory join inventorytransactions on inventory.ingredientid = inventorytransactions.ingredientid where inventorytransactions.ordertime between '"
+                + date + "' AND '" + formattedDateTime + "' and inventory.curramount > inventory.minamount * 0.9;";
             System.out.println(sqlStatement);
             r = stmt.executeQuery(sqlStatement);
 
@@ -340,14 +340,30 @@ public class jdbcpostgreSQL {
 
     /*
      * Given a time window, display the sales by item from the order history.
+     * @param startTime The start time of the time window
+     * @param endTime The end time of the time window
+     * @return A ResultSet containing the sales report
+     *
+     * @brief SQL Table Setup:
+     * Table orderlineitems: lineItemID int, itemID int, price float, orderID int
+     * Table order: orderID int, timestamp datetime, employeeID int
      */
     public ResultSet getSalesReport(Date startTime, Date endTime) {
         ResultSet r = null;
         try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement =
+                "SELECT menuitems.name, SUM(orderlineitems.price) FROM orderlineitems JOIN menuitems ON orderlineitems.itemID = menuitems.menuItemID JOIN orders ON orderlineitems.orderID = orders.orderID WHERE orders.timestamp BETWEEN '"
+                + startTime + "' AND '" + endTime + "' GROUP BY menuitems.name";
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+            // print table
+            while (r.next()) {
+                System.out.println(r.getString(1) /*+ " " + r.getString(2) + " " + r.getString(3) + " " + r.getString(4)*/);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return r;
     }
 

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 
@@ -16,12 +17,6 @@ public class ManagerController {
     ObservableList<ObservableList<String>> inventoryData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> restockReportData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> excessReportData = FXCollections.observableArrayList();
-    
-    @FXML
-    private TableView inventoryTableView;
-    @FXML
-    private TableView restockReportTableView;
-
     ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> salesReportData = FXCollections.observableArrayList();
 
@@ -34,10 +29,8 @@ public class ManagerController {
     @FXML private TableView menuTableView;
     @FXML private TableView salesReportTableView;
 
-    @FXML
-    private TableView excessReportTableView;
-    @FXML
-    DatePicker dateExcessReport;
+    @FXML private TableView excessReportTableView;
+    @FXML DatePicker dateExcessReport;
 
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
@@ -73,11 +66,34 @@ public class ManagerController {
     private void generateSalesReport(ActionEvent event) {
         System.out.println("Manager has tried to generate a Sales Report");
 
-        System.out.print("Start Date: " + startDatePicker.getValue());
-        System.out.println(" End Date: " + endDatePicker.getValue());
-        // Date startDate = Date.valueOf(startDatePicker.getValue());
-        // Date endDate = Date.valueOf(endDatePicker.getValue());
-        // setTableResult(db.getSalesReport(startDate, endDate), salesReportData, salesReportTableView);
+        Alert a = new Alert(AlertType.NONE);
+
+        // Error handling
+        if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
+            System.out.println("Error: No dates selected");
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Error: No dates selected");
+            a.show();
+            return;
+        }
+        if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
+            System.out.println("Start date is after end date");
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Error: Start date is after end date");
+            a.show();
+            return;
+        }
+        if (startDatePicker.getValue().isEqual(endDatePicker.getValue())) {
+            System.out.println("Start date is equal to end date");
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Error: Start date is equal to end date");
+            a.show();
+            return;
+        }
+
+        Date startDate = Date.valueOf(startDatePicker.getValue());
+        Date endDate = Date.valueOf(endDatePicker.getValue());
+        setTableResult(db.getSalesReport(startDate, endDate), salesReportData, salesReportTableView);
     }
 
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {

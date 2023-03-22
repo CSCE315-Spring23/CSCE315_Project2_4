@@ -78,12 +78,12 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="excessReportTableView" layoutX="14.0" layoutY="43.0" prefHeight="311.0" prefWidth="549.0">
+                        <TableView layoutX="14.0" layoutY="43.0" prefHeight="311.0" prefWidth="549.0">
                           <columns>
                             <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
-                        <DatePicker fx:id="dateExcessReport" onAction="#getDateExcessReport" layoutX="77.0" layoutY="12.0" />
+                        <DatePicker layoutX="77.0" layoutY="12.0" />
                         <Label layoutX="39.0" layoutY="16.0" text="From" />
                         <Label layoutX="274.0" layoutY="17.0" text="to now." />
                      </children></AnchorPane>
@@ -132,18 +132,21 @@
                         </Label>
                         <Separator layoutX="585.0" orientation="VERTICAL" prefHeight="503.0" prefWidth="5.0" />
                         <Label layoutX="598.0" layoutY="48.0" text="New Item Name" />
-                        <TextField layoutX="598.0" layoutY="65.0" />
+                        <TextField fx:id="newMenuNameField" layoutX="598.0" layoutY="65.0" />
                         <Label layoutX="598.0" layoutY="104.0" text="New Item Price " />
                         <Label layoutX="599.0" layoutY="154.0" text="New Item Class" />
-                        <TextField layoutX="617.0" layoutY="121.0" prefHeight="26.0" prefWidth="121.0" />
+                        <TextField fx:id="newMenuPriceField" layoutX="617.0" layoutY="121.0" prefHeight="26.0" prefWidth="121.0" />
                         <Label layoutX="609.0" layoutY="126.0" text="\$" />
-                        <TextField layoutX="599.0" layoutY="171.0" prefHeight="26.0" prefWidth="91.0" />
+                        <TextField fx:id="newMenuClassField" layoutX="599.0" layoutY="171.0" prefHeight="26.0" prefWidth="91.0" />
                         <TextArea editable="false" layoutX="706.0" layoutY="170.0" prefHeight="79.0" prefWidth="63.0" text="1) Combo&#10;2) Entree&#10;3) Drink&#10;4) Sweet&#10;5) Side">
                            <font>
                               <Font size="11.0" />
                            </font>
                         </TextArea>
-                        <Button layoutX="659.0" layoutY="400.0" mnemonicParsing="false" text="Add New Menu Item" />
+                        <Button layoutX="659.0" layoutY="400.0" mnemonicParsing="false" onAction="#addMenuItem" text="Add New Menu Item" />
+                        <Label layoutX="597.0" layoutY="213.0" prefHeight="17.0" prefWidth="71.0" text="New Item ID" />
+                        <TextField fx:id="newMenuIDField" layoutX="598.0" layoutY="230.0" prefHeight="26.0" prefWidth="91.0" />
+                        <Button layoutX="412.0" layoutY="13.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" text="Delete Selected Menu Item" />
                      </children>
                   </AnchorPane>
                </content>

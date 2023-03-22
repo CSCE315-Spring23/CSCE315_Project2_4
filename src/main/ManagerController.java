@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
+import javafx.scene.control.Alert.AlertType;
 
 public class ManagerController {
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
@@ -20,17 +21,32 @@ public class ManagerController {
     ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> salesReportData = FXCollections.observableArrayList();
 
-    // Create DatePickers
-    @FXML private DatePicker startDatePicker;
-    @FXML private DatePicker endDatePicker;
+    @FXML
+    private DatePicker startDatePicker;
+    @FXML
+    private DatePicker endDatePicker;
+    @FXML
+    private DatePicker dateExcessReport;
 
-    @FXML private TableView inventoryTableView;
-    @FXML private TableView restockReportTableView;
-    @FXML private TableView menuTableView;
-    @FXML private TableView salesReportTableView;
+    @FXML
+    private TableView inventoryTableView;
+    @FXML
+    private TableView restockReportTableView;
+    @FXML
+    private TableView menuTableView;
+    @FXML
+    private TableView salesReportTableView;
+    @FXML
+    private TableView excessReportTableView;
 
-    @FXML private TableView excessReportTableView;
-    @FXML DatePicker dateExcessReport;
+    @FXML
+    private TextField newMenuNameField;
+    @FXML
+    private TextField newMenuIDField;
+    @FXML
+    private TextField newMenuPriceField;
+    @FXML
+    private TextField newMenuClassField;
 
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
@@ -54,7 +70,7 @@ public class ManagerController {
         System.out.println("Manager has tried to open the Server View");
         try {
             Process theProcess = Runtime.getRuntime().exec(
-                "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
+                    "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
             System.out.println("Server View Opened Sucessfully");
         } catch (Exception e) {
             System.err.println("Failed to open Server View");
@@ -63,6 +79,8 @@ public class ManagerController {
     }
 
     @FXML
+<<<<<<< Updated upstream
+
     private void generateSalesReport(ActionEvent event) {
         System.out.println("Manager has tried to generate a Sales Report");
 
@@ -94,6 +112,73 @@ public class ManagerController {
         Date startDate = Date.valueOf(startDatePicker.getValue());
         Date endDate = Date.valueOf(endDatePicker.getValue());
         setTableResult(db.getSalesReport(startDate, endDate), salesReportData, salesReportTableView);
+=======
+
+    private void addMenuItem(ActionEvent event) {
+        try {
+            Alert a = new Alert(AlertType.ERROR);
+            String name = "";
+            int id = -1;
+            int classId = -1;
+            float price = -1.0f;
+
+            String text = newMenuNameField.getText();
+            if (text.isEmpty()) {
+                a.setContentText("'Name' cannot be blank!");
+                a.show();
+                return;
+            } else {
+                name = text;
+            }
+            text = newMenuIDField.getText();
+            if (text.isEmpty()) {
+                a.setContentText("'ID' cannot be blank!");
+                a.show();
+                return;
+            } else {
+                id = Integer.parseInt(text);
+            }
+            text = newMenuClassField.getText();
+            if (text.isEmpty()) {
+                a.setContentText("'Class' cannot be blank!");
+                a.show();
+                return;
+            } else {
+                classId = Integer.parseInt(text);
+            }
+            text = newMenuPriceField.getText();
+            if (text.isEmpty()) {
+                a.setContentText("'Price' cannot be blank!");
+                a.show();
+                return;
+            } else {
+                price = jdbcpostgreSQL.round(Float.parseFloat(text), 2);
+            }
+
+            if (db.isMenuIdValid(id) && isClassIdValid(classId) && price >= 0) {
+                db.addMenuItem(id, name, price, classId);
+            } else {
+                // throw popup explianing invalid criteria
+                if (!db.isMenuIdValid(id)) {
+                    a.setContentText(id + " is already used for an existing Menu Item!");
+                } else if (!isClassIdValid(classId)) {
+                    a.setContentText("Class must be an ingeter from 1 to 5!");
+                } else if (price < 0) {
+                    a.setContentText("Price cannot be less than 0!");
+                }
+                a.show();
+            }
+        } catch (Exception e) {
+            if (e instanceof NullPointerException) {
+                Alert a = new Alert(AlertType.ERROR);
+                a.setContentText("Name, Id, Class, and Price cannot be blank!");
+                a.show();
+            } else {
+                System.out.println(e.getMessage());
+            }
+        }
+
+>>>>>>> Stashed changes
     }
 
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {
@@ -104,14 +189,16 @@ public class ManagerController {
                 String colName = r.getMetaData().getColumnName(j + 1);
                 TableColumn newCol = new TableColumn(colName);
                 newCol.setCellValueFactory(
-                    new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
-                        public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
-                            return new SimpleStringProperty(param.getValue().get(j).toString());
-                        }
-                    });
+                        new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                            public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                                return new SimpleStringProperty(param.getValue().get(j).toString());
+                            }
+                        });
                 table.getColumns().addAll(newCol);
             }
-            table.getColumns().remove(0);
+            if (table.getColumns().get(0) == "") {
+                table.getColumns().remove(0);
+            }
 
             while (r.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
@@ -126,5 +213,12 @@ public class ManagerController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private boolean isClassIdValid(int classId) {
+        if (classId < 6 && classId > 0) {
+            return true;
+        }
+        return false;
     }
 }

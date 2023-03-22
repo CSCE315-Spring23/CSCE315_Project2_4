@@ -489,18 +489,13 @@ public class jdbcpostgreSQL {
     }
 
     /*
-     * Given a time window, display the sales by item from the order history.
+     * Given a time window, display the sales and quantities orderered by item from the order history.
      *
      * @param startTime The start time of the time window
-     *
      * @param endTime The end time of the time window
      *
      * @return A ResultSet containing the sales report
-     *
-     * @brief SQL Table Setup:
-     * Table orderlineitems: lineItemID int, itemID int, price float, orderID int
-     * Table order: orderID int, timestamp datetime, employeeID int
-     *
+     * @throws Exception if the sql statement fails to execute
      */
     public ResultSet getSalesReport(Date startTime, Date endTime) {
         ResultSet r = null;

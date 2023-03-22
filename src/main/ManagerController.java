@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
-import javafx.scene.control.Alert.AlertType;
+
 
 public class ManagerController {
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
@@ -23,41 +23,25 @@ public class ManagerController {
     ObservableList<ObservableList<String>> xReportData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> zReportData = FXCollections.observableArrayList();
 
-    @FXML
-    private DatePicker startDatePicker;
-    @FXML
-    private DatePicker endDatePicker;
-    @FXML
-    private DatePicker dateExcessReport;
+    @FXML private DatePicker startDatePicker;
+    @FXML private DatePicker endDatePicker;
+    @FXML private DatePicker dateExcessReport;
 
-    @FXML
-    private TableView inventoryTableView;
-    @FXML
-    private TableView restockReportTableView;
-    @FXML
-    private TableView menuTableView;
-    @FXML
-    private TableView salesReportTableView;
-    @FXML
-    private TableView excessReportTableView;
+    @FXML private TableView inventoryTableView;
+    @FXML private TableView restockReportTableView;
+    @FXML private TableView menuTableView;
+    @FXML private TableView salesReportTableView;
+    @FXML private TableView excessReportTableView;
 
-    @FXML
-    private TableView xReportTableView;
-    @FXML
-    private TableView zReportTableView;
+    @FXML private TableView xReportTableView;
+    @FXML private TableView zReportTableView;
 
-    @FXML
-    private TextField newMenuNameField;
-    @FXML
-    private TextField newMenuIDField;
-    @FXML
-    private TextField newMenuPriceField;
-    @FXML
-    private TextField newMenuClassField;
-    @FXML
-    private TextField inventoryRestockField;
-    @FXML
-    private TextField inventoryReduceField;
+    @FXML private TextField newMenuNameField;
+    @FXML private TextField newMenuIDField;
+    @FXML private TextField newMenuPriceField;
+    @FXML private TextField newMenuClassField;
+    @FXML private TextField inventoryRestockField;
+    @FXML private TextField inventoryReduceField;
 
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
@@ -285,7 +269,7 @@ public class ManagerController {
         System.out.println("Manager has tried to open the Server View");
         try {
             Process theProcess = Runtime.getRuntime().exec(
-                    "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
+                "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
             System.out.println("Server View Opened Sucessfully");
         } catch (Exception e) {
             System.err.println("Failed to open Server View");
@@ -301,11 +285,11 @@ public class ManagerController {
                 String colName = r.getMetaData().getColumnName(j + 1);
                 TableColumn newCol = new TableColumn(colName);
                 newCol.setCellValueFactory(
-                        new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
-                            public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
-                                return new SimpleStringProperty(param.getValue().get(j).toString());
-                            }
-                        });
+                    new Callback<CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                        public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {
+                            return new SimpleStringProperty(param.getValue().get(j).toString());
+                        }
+                    });
                 table.getColumns().addAll(newCol);
             }
             if (table.getColumns().get(0) == "") {

@@ -507,8 +507,10 @@ public class jdbcpostgreSQL {
         try {
             Statement stmt = conn.createStatement();
             String sqlStatement =
-                "SELECT menuitems.name as \"Menu Item\", COUNT(1) as \"Quantity Sold\" , ROUND(CAST(SUM(orderlineitems.menuprice) AS numeric), 2) as \"Sales\" FROM orderlineitems JOIN menuitems ON orderlineitems.menuitemID = menuitems.menuItemID JOIN orders ON orderlineitems.orderID = orders.orderID WHERE orders.ordertime BETWEEN '"
-                + startTime + "' AND '" + endTime + "' GROUP BY menuitems.name";
+                "SELECT menuitems.name as \"Menu Item\", COUNT(1) as \"Quantity Sold\" , ROUND(CAST(SUM(orderlineitems.menuprice) AS numeric), 2) as \"Sales\"\n"
+                + "FROM orderlineitems \n"
+                + "JOIN menuitems ON orderlineitems.menuitemID = menuitems.menuItemID JOIN orders ON orderlineitems.orderID = orders.orderID \n"
+                + "WHERE orders.ordertime BETWEEN '" + startTime + "' AND '" + endTime + "' GROUP BY menuitems.name";
             System.out.println(sqlStatement);
             r = stmt.executeQuery(sqlStatement);
         } catch (Exception e) {

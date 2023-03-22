@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"jdbcpostgreSQL"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"<Unnamed>","l":"dbSetup"},{"p":"<Unnamed>","l":"Ingredient"},{"p":"<Unnamed>","l":"jdbcpostgreSQL"},{"p":"<Unnamed>","l":"Manager"},{"p":"<Unnamed>","l":"ManagerController"},{"p":"<Unnamed>","l":"Server"},{"p":"<Unnamed>","l":"ServerController"}];updateSearchResults();

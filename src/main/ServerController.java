@@ -1,7 +1,9 @@
-import java.util.Vector;
+import java.util.*;
+import java.sql.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.collections.*;
 
@@ -14,8 +16,23 @@ public class ServerController {
     private Label totalPriceField;
     @FXML
     private ListView<String> orderListView;
+    @FXML
+    private GridPane comboGridPane;
+    @FXML
+    private GridPane entreeGridPane;
+    @FXML
+    private GridPane drinkGridPane;
+    @FXML
+    private GridPane sweetGridPane;
+    @FXML
+    private GridPane sideGridPane;
 
     public void initialize() {
+        populateButtons(1, comboGridPane);
+        populateButtons(2, entreeGridPane);
+        populateButtons(3, drinkGridPane);
+        populateButtons(4, sweetGridPane);
+        populateButtons(5, sideGridPane);
         orderListView.setItems(currOrderNames);
     }
 
@@ -26,6 +43,12 @@ public class ServerController {
         int menuID = Integer.parseInt(data);
         currOrder.add(menuID);
         currOrderNames.add(db.getItemName(menuID));
+        updateTotal(db.getOrderTotal(currOrder));
+    }
+
+    private void addItemToOrder(int id) {
+        currOrder.add(id);
+        currOrderNames.add(db.getItemName(id));
         updateTotal(db.getOrderTotal(currOrder));
     }
 
@@ -50,5 +73,34 @@ public class ServerController {
 
     private void updateTotal(float orderTotal) {
         totalPriceField.setText(String.format("%.2f", orderTotal));
+    }
+
+    private void populateButtons(int classID, GridPane pane) {
+        try {
+            List<Button> buttons = new ArrayList<Button>();
+            ResultSet r = db.getClassItems(classID);
+            while (r.next()) {
+                Button x = new Button(r.getString(2));
+                int id = r.getInt(1);
+                x.setWrapText(true);
+                x.setMinWidth(98);
+                x.setMinHeight(28);
+                x.setOnAction(e -> addItemToOrder(id));
+                buttons.add(x);
+            }
+            pane.getChildren().clear();
+            int row = 0, col = 0;
+            for (Button x : buttons) {
+                pane.add(x, col, row);
+                col++;
+                if (col == 5) {
+                    col = 0;
+                    row++;
+                }
+            }
+            pane.getChildren().addAll(buttons);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

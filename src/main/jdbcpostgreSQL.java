@@ -370,6 +370,19 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    public ResultSet getClassItems(int classID) {
+        ResultSet r = null;
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "SELECT * from menuitems WHERE classid=" + classID;
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return r;
+    }
+
     public void deleteMenuItem(int id) {
         try {
             Statement stmt = conn.createStatement();

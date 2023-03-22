@@ -9,7 +9,7 @@ public class Server extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			HBox root = (HBox) FXMLLoader.load(getClass().getResource("server.fxml"));
-			Scene scene = new Scene(root, 600, 400);
+			Scene scene = new Scene(root, 635, 430);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {

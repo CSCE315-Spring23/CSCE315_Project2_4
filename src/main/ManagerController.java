@@ -156,6 +156,7 @@ public class ManagerController {
 
             if (db.isMenuIdValid(id) && isClassIdValid(classId) && price >= 0) {
                 db.addMenuItem(id, name, price, classId);
+                refreshMenuTable(event);
             } else {
                 // throw popup explianing invalid criteria
                 if (!db.isMenuIdValid(id)) {
@@ -176,7 +177,24 @@ public class ManagerController {
                 System.out.println(e.getMessage());
             }
         }
+    }
 
+    @FXML
+    void deleteSelectedMenuItem(ActionEvent event) {
+        Object rowDataObj = menuTableView.getSelectionModel().getSelectedItems().get(0);
+        String rowDataStr = rowDataObj.toString();
+        String idStr = rowDataStr.substring(1, rowDataStr.indexOf(','));
+        int id = Integer.parseInt(idStr);
+        System.out.println("MenuItemId = " + id);
+        db.deleteMenuItem(id);
+        refreshMenuTable(event);
+    }
+
+    @FXML
+    void refreshMenuTable(ActionEvent event) {
+        menuTableView.getItems().clear();
+        menuTableView.getColumns().clear();
+        setTableResult(db.getMenu(), menuData, menuTableView);
     }
 
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {

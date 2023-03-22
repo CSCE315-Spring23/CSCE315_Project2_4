@@ -146,7 +146,8 @@
                         <Button layoutX="659.0" layoutY="400.0" mnemonicParsing="false" onAction="#addMenuItem" text="Add New Menu Item" />
                         <Label layoutX="597.0" layoutY="213.0" prefHeight="17.0" prefWidth="71.0" text="New Item ID" />
                         <TextField fx:id="newMenuIDField" layoutX="598.0" layoutY="230.0" prefHeight="26.0" prefWidth="91.0" />
-                        <Button layoutX="412.0" layoutY="13.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="165.0" text="Delete Selected Menu Item" />
+                        <Button layoutX="412.0" layoutY="13.0" mnemonicParsing="false" onAction="#deleteSelectedMenuItem" prefHeight="26.0" prefWidth="165.0" text="Delete Selected Menu Item" />
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#refreshMenuTable" prefHeight="26.0" prefWidth="93.0" text="Refresh Table" />
                      </children>
                   </AnchorPane>
                </content>

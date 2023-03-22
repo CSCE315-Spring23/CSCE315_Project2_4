@@ -1,3 +1,4 @@
+
 // Java Backend postgress
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -367,6 +368,17 @@ public class jdbcpostgreSQL {
         }
 
         return r;
+    }
+
+    public void deleteMenuItem(int id) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "DELETE from menuitems WHERE menuitemid=" + id;
+            System.out.println(sqlStatement);
+            stmt.executeQuery(sqlStatement);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /*

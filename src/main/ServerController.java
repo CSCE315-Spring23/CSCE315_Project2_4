@@ -1,31 +1,25 @@
-import java.util.*;
 import java.sql.*;
+import java.util.*;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.collections.*;
+import javafx.scene.layout.*;
+
 
 public class ServerController {
     private Vector<Integer> currOrder = new Vector<Integer>();
     private ObservableList<String> currOrderNames = FXCollections.observableArrayList();
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
     private int employeeID = 0; // TODO get session user's (employee) id
-    @FXML
-    private Label totalPriceField;
-    @FXML
-    private ListView<String> orderListView;
-    @FXML
-    private GridPane comboGridPane;
-    @FXML
-    private GridPane entreeGridPane;
-    @FXML
-    private GridPane drinkGridPane;
-    @FXML
-    private GridPane sweetGridPane;
-    @FXML
-    private GridPane sideGridPane;
+    @FXML private Label totalPriceField;
+    @FXML private ListView<String> orderListView;
+    @FXML private GridPane comboGridPane;
+    @FXML private GridPane entreeGridPane;
+    @FXML private GridPane drinkGridPane;
+    @FXML private GridPane sweetGridPane;
+    @FXML private GridPane sideGridPane;
 
     public void initialize() {
         populateButtons(1, comboGridPane);

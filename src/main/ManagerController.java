@@ -12,7 +12,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 
-
 public class ManagerController {
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
     ObservableList<ObservableList<String>> inventoryData = FXCollections.observableArrayList();

@@ -54,11 +54,12 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="335.0" prefWidth="552.0">
-                          <columns>
-                            <TableColumn prefWidth="0" text="" />
-                          </columns>
+                        <TableView fx:id="xReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="335.0" prefWidth="552.0">
+                           <columns>
+                              <TableColumn prefWidth="0" text="" />
+                           </columns>
                         </TableView>
+                        <Button layoutX="623.0" layoutY="43.0" mnemonicParsing="false" onAction="#generateXReport" text="Generate X Report" fx:id="xReportButton" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -66,11 +67,12 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="542.0">
-                          <columns>
-                            <TableColumn prefWidth="0" text="" />
-                          </columns>
+                        <TableView fx:id="zReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="542.0">
+                           <columns>
+                              <TableColumn prefWidth="0" text="" />
+                           </columns>
                         </TableView>
+                        <Button fx:id="zReportButton" layoutX="616.0" layoutY="41.0" mnemonicParsing="false" onAction="#generateZReport" text="Generate Z Report" />
                      </children></AnchorPane>
                </content>
             </Tab>
@@ -83,7 +85,7 @@
                             <TableColumn prefWidth="0" text="" />
                           </columns>
                         </TableView>
-                        <DatePicker fx:id="dateExcessReport" onAction="#getDateExcessReport" layoutX="77.0" layoutY="12.0" />
+                        <DatePicker fx:id="dateExcessReport" layoutX="77.0" layoutY="12.0" onAction="#getDateExcessReport" />
                         <Label layoutX="39.0" layoutY="16.0" text="From" />
                         <Label layoutX="274.0" layoutY="17.0" text="to now." />
                      </children></AnchorPane>

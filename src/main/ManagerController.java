@@ -19,6 +19,8 @@ public class ManagerController {
     ObservableList<ObservableList<String>> excessReportData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> salesReportData = FXCollections.observableArrayList();
+	ObservableList<ObservableList<String>> xReportData = FXCollections.observableArrayList();
+	ObservableList<ObservableList<String>> zReportData = FXCollections.observableArrayList();
 
     // Create DatePickers
     @FXML private DatePicker startDatePicker;
@@ -28,6 +30,8 @@ public class ManagerController {
     @FXML private TableView restockReportTableView;
     @FXML private TableView menuTableView;
     @FXML private TableView salesReportTableView;
+	@FXML private TableView xReportTableView;
+	@FXML private TableView zReportTableView;
 
     @FXML private TableView excessReportTableView;
     @FXML DatePicker dateExcessReport;
@@ -54,7 +58,7 @@ public class ManagerController {
         System.out.println("Manager has tried to open the Server View");
         try {
             Process theProcess = Runtime.getRuntime().exec(
-                "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
+                "java --module-path C:/Users/caleb/Documents/javafx-sdk-18.0.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
             System.out.println("Server View Opened Sucessfully");
         } catch (Exception e) {
             System.err.println("Failed to open Server View");
@@ -95,7 +99,19 @@ public class ManagerController {
         Date endDate = Date.valueOf(endDatePicker.getValue());
         setTableResult(db.getSalesReport(startDate, endDate), salesReportData, salesReportTableView);
     }
-
+	
+	@FXML
+	private void generateXReport(ActionEvent event) {
+		System.out.println("Manager has tried to generate an X Report");
+		setTableResult(db.getXReport(), xReportData, xReportTableView);
+	}
+	
+	@FXML
+	private void generateZReport(ActionEvent event) {
+		System.out.println("Manager has tried to generate a Z Report");
+		setTableResult(db.getXReport(), zReportData, zReportTableView);
+	}
+	
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {
         try {
             int numCols = r.getMetaData().getColumnCount();

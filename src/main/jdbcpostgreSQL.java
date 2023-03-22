@@ -366,6 +366,27 @@ public class jdbcpostgreSQL {
         }
         return r;
     }
+	
+	public ResultSet getXReport() {
+        ResultSet r = null;
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement =
+                "SELECT * FROM orders WHERE date_trunc('day', ordertime) = (SELECT max(date_trunc('day', ordertime)) FROM orders)";
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+            // print table
+			/*
+            while (r.next()) {
+                System.out.println(r.getString(1) + " " + r.getString(2) + " " + r.getString(3) + " " + r.getString(4));
+            }
+			*/
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return r;
+    }
+
 
     public static void main(String[] args) {}
 } // end Class

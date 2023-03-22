@@ -79,8 +79,6 @@ public class ManagerController {
     }
 
     @FXML
-<<<<<<< Updated upstream
-
     private void generateSalesReport(ActionEvent event) {
         System.out.println("Manager has tried to generate a Sales Report");
 
@@ -112,8 +110,9 @@ public class ManagerController {
         Date startDate = Date.valueOf(startDatePicker.getValue());
         Date endDate = Date.valueOf(endDatePicker.getValue());
         setTableResult(db.getSalesReport(startDate, endDate), salesReportData, salesReportTableView);
-=======
+    }
 
+    @FXML
     private void addMenuItem(ActionEvent event) {
         try {
             Alert a = new Alert(AlertType.ERROR);
@@ -178,7 +177,6 @@ public class ManagerController {
             }
         }
 
->>>>>>> Stashed changes
     }
 
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {

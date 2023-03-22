@@ -54,35 +54,15 @@ public class ManagerController {
     private TextField newMenuPriceField;
     @FXML
     private TextField newMenuClassField;
+    @FXML
+    private TextField inventoryRestockField;
+    @FXML
+    private TextField inventoryReduceField;
 
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
         setTableResult(db.getMenu(), menuData, menuTableView);
-        // db.getSalesReport(null, null);
-    }
-
-    @FXML
-    private void getDateExcessReport(ActionEvent event) {
-        excessReportTableView.getItems().clear();
-        excessReportTableView.getColumns().clear();
-        Node node = (Node) event.getSource();
-        LocalDate date = dateExcessReport.getValue();
-        System.out.println("Get date " + date.toString() + " 00:00");
-        setTableResult(db.getExcessReport(date.toString() + " 00:00:00"), excessReportData, excessReportTableView);
-    }
-
-    @FXML
-    private void openServerView(ActionEvent event) {
-        System.out.println("Manager has tried to open the Server View");
-        try {
-            Process theProcess = Runtime.getRuntime().exec(
-                    "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
-            System.out.println("Server View Opened Sucessfully");
-        } catch (Exception e) {
-            System.err.println("Failed to open Server View");
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -131,6 +111,87 @@ public class ManagerController {
     private void generateZReport(ActionEvent event) {
         System.out.println("Manager has tried to generate a Z Report");
         setTableResult(db.getXReport(), zReportData, zReportTableView);
+    }
+
+    @FXML
+    private void getDateExcessReport(ActionEvent event) {
+        excessReportTableView.getItems().clear();
+        excessReportTableView.getColumns().clear();
+        Node node = (Node) event.getSource();
+        LocalDate date = dateExcessReport.getValue();
+        System.out.println("Get date " + date.toString() + " 00:00");
+        setTableResult(db.getExcessReport(date.toString() + " 00:00:00"), excessReportData, excessReportTableView);
+    }
+
+    @FXML
+    private void refreshRestockReport(ActionEvent event) {
+        restockReportTableView.getItems().clear();
+        restockReportTableView.getColumns().clear();
+        setTableResult(db.getXReport(), restockReportData, restockReportTableView);
+    }
+
+    @FXML
+    private void restockSelectedInventory(ActionEvent event) {
+        try {
+            int qty = 0;
+            Object rowDataObj = inventoryTableView.getSelectionModel().getSelectedItems().get(0);
+            String rowDataStr = rowDataObj.toString();
+            String idStr = rowDataStr.substring(1, rowDataStr.indexOf(','));
+            int id = Integer.parseInt(idStr);
+            String text = inventoryRestockField.getText();
+            if (!text.isEmpty()) {
+                qty = Integer.parseInt(text);
+                if (qty < 0) {
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Quantity cannot be less than 0!");
+                    a.show();
+                } else {
+                    db.addInventory(id, qty);
+                    refreshInventoryTable();
+                    inventoryTableView.getSelectionModel().clearSelection();
+                }
+            }
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                Alert a = new Alert(AlertType.ERROR);
+                a.setContentText("Quantity must be a positive integer!");
+                a.show();
+            } else {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void reduceSelectedInventory(ActionEvent event) {
+        try {
+            int qty = 0;
+            Object rowDataObj = inventoryTableView.getSelectionModel().getSelectedItems().get(0);
+            String rowDataStr = rowDataObj.toString();
+            String idStr = rowDataStr.substring(1, rowDataStr.indexOf(','));
+            int id = Integer.parseInt(idStr);
+            String text = inventoryReduceField.getText();
+            if (!text.isEmpty()) {
+                qty = Integer.parseInt(text);
+                if (qty < 0) {
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Quantity cannot be less than 0!");
+                    a.show();
+                } else {
+                    db.subtractInventory(id, qty);
+                    refreshInventoryTable();
+                    inventoryTableView.getSelectionModel().clearSelection();
+                }
+            }
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                Alert a = new Alert(AlertType.ERROR);
+                a.setContentText("Quantity must be a positive integer!");
+                a.show();
+            } else {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     @FXML
@@ -209,6 +270,7 @@ public class ManagerController {
         System.out.println("MenuItemId = " + id);
         db.deleteMenuItem(id);
         refreshMenuTable(event);
+        menuTableView.getSelectionModel().clearSelection();
     }
 
     @FXML
@@ -216,6 +278,19 @@ public class ManagerController {
         menuTableView.getItems().clear();
         menuTableView.getColumns().clear();
         setTableResult(db.getMenu(), menuData, menuTableView);
+    }
+
+    @FXML
+    private void openServerView(ActionEvent event) {
+        System.out.println("Manager has tried to open the Server View");
+        try {
+            Process theProcess = Runtime.getRuntime().exec(
+                    "java --module-path /Users/lwilber/Downloads/javafx-sdk-19.0.2.1/lib --add-modules javafx.controls,javafx.graphics,javafx.media,javafx.fxml Server");
+            System.out.println("Server View Opened Sucessfully");
+        } catch (Exception e) {
+            System.err.println("Failed to open Server View");
+            e.printStackTrace();
+        }
     }
 
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {
@@ -251,6 +326,12 @@ public class ManagerController {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void refreshInventoryTable() {
+        inventoryTableView.getItems().clear();
+        inventoryTableView.getColumns().clear();
+        setTableResult(db.getInventory(), inventoryData, inventoryTableView);
     }
 
     private boolean isClassIdValid(int classId) {

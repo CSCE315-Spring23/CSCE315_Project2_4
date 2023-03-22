@@ -89,8 +89,6 @@ public class jdbcpostgreSQL {
      * calculating the price, inserting into orderLineItem, executing the
      * sqlStatement and then insert into orderTable.
      *
-     * @param conn is the session instance of java to database
-     *
      * @param itemIDs is a vector of all itemID's
      *
      * @param employeeID is the current employee accessing the system
@@ -174,6 +172,19 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /*
+     * Updates both inventorytransactions and inventory tables by grabbing
+     * information from database, and executing the sqlStatement and then
+     * inserting entries into inventorytransactions table and updating the
+     * quantities of reac respective ingredient for each transaction.
+     *
+     * @param newOrderId is the orderid of the newly created order
+     *
+     * @returns void
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public void updateInventoryTransactionsAndInventoryTable(int newOrderId) {
         try {
             Statement stmt = conn.createStatement();
@@ -206,6 +217,19 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /*
+     * Updates inventory table; subtracts qty from currAmt of the ingredient
+     * associated with the given ingredientid
+     *
+     * @param ingredientID is the ingredientid of the ingreditent to be reduced
+     *
+     * @param qty is the amount to reduce the ingredient currAmt by
+     *
+     * @returns void
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public void subtractInventory(int ingredientID, int qty) {
         try {
             Statement stmt = conn.createStatement();
@@ -218,6 +242,19 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /*
+     * Updates inventory table; restocks qty from currAmt of the ingredient
+     * associated with the given ingredientid
+     *
+     * @param ingredientID is the ingredientid of the ingreditent to be reduced
+     *
+     * @param qty is the amount to increase the ingredient currAmt by
+     *
+     * @returns void
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public void addInventory(int ingredientID, int qty) {
         try {
             Statement stmt = conn.createStatement();
@@ -230,6 +267,17 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /*
+     * Checks to see if the given menuitemid is already used in the
+     *
+     * @param id is the menuitemid of the to be validated
+     *
+     * @returns boolean; true if the id is unused in teh menuitems table, flase if
+     * it is used in already
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public boolean isMenuIdValid(int id) {
         try {
             Statement stmt = conn.createStatement();
@@ -247,6 +295,24 @@ public class jdbcpostgreSQL {
         return false;
     }
 
+    /*
+     * Updates menuitem table; adds menu item into menuitems table with passed in
+     * values
+     *
+     * @param id is the new item's menuitemid
+     *
+     * @param name is the name of the new item
+     * 
+     * @param price is the menuprice of the new item
+     * 
+     * @param classId is the classid of the new item; determines which tab in the
+     * server view the item will be displayed
+     *
+     * @returns void
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public void addMenuItem(int id, String name, float price, int classId) {
         try {
             Statement stmt = conn.createStatement();
@@ -287,6 +353,16 @@ public class jdbcpostgreSQL {
         return 0;
     }
 
+    /*
+     * Accesses the menuitems table to get the given menuitemid's name
+     *
+     * @param itemID is the menuitemid of the to name to be returned
+     *
+     * @returns String of the name of the menuitem
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public String getItemName(int itemID) {
         try {
             Statement stmt = conn.createStatement();
@@ -304,6 +380,14 @@ public class jdbcpostgreSQL {
         return "";
     }
 
+    /*
+     * Retrieves the data in the inventory table as a ResultSet
+     *
+     * @returns ResultSet of the sql query that retreives the inventory table data
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public ResultSet getInventory() {
         ResultSet r = null;
         try {
@@ -318,6 +402,16 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /*
+     * Retrieves the data in of which ingredients have a currAmt not less than its
+     * minAmt as a ResultSet
+     *
+     * @returns ResultSet of the sql query that retreives the which ingredients need
+     * to be restocked
+     *
+     * @throws exception if function fails to create the sql statement to be
+     * inserted into order
+     */
     public ResultSet getRestockReport() {
         ResultSet r = null;
         try {

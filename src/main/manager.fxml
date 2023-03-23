@@ -39,7 +39,7 @@
                         <DatePicker fx:id="endDatePicker" layoutX="291.0" layoutY="12.0" />
                         <Label layoutX="14.0" layoutY="16.0" text="Start:" />
                         <Label layoutX="254.0" layoutY="17.0" text="End:" />
-                        <TableView fx:id="salesReportTableView" layoutX="14.0" layoutY="47.0" prefHeight="306.0" prefWidth="551.0">
+                        <TableView fx:id="salesReportTableView" layoutX="14.0" layoutY="47.0" prefHeight="380.0" prefWidth="551.0">
                           <columns>
                             <TableColumn prefWidth="0" text="" />
                           </columns>
@@ -52,7 +52,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="335.0" prefWidth="552.0" fx:id="xReportTableView">
+                        <TableView layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="552.0" fx:id="xReportTableView">
                            <columns>
                               <TableColumn prefWidth="0" text="" />
                            </columns>
@@ -65,12 +65,12 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="zReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="542.0">
+                        <TableView fx:id="zReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="552.0">
                            <columns>
                               <TableColumn prefWidth="0" text="" />
                            </columns>
                         </TableView>
-                        <Button fx:id="zReportButton" layoutX="616.0" layoutY="41.0" mnemonicParsing="false" onAction="#generateZReport" text="Generate Z Report" />
+                        <Button fx:id="zReportButton" layoutX="623.0" layoutY="43.0" mnemonicParsing="false" onAction="#generateZReport" text="Generate Z Report" />
                      </children></AnchorPane>
                </content>
             </Tab>
@@ -78,7 +78,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="excessReportTableView" layoutX="14.0" layoutY="43.0" prefHeight="311.0" prefWidth="549.0">
+                        <TableView fx:id="excessReportTableView" layoutX="14.0" layoutY="43.0" prefHeight="380.0" prefWidth="549.0">
                           <columns>
                             <TableColumn prefWidth="0" text="" />
                           </columns>
@@ -93,7 +93,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="restockReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="412.0" prefWidth="579.0">
+                        <TableView fx:id="restockReportTableView" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="579.0">
                           <columns>
                           <TableColumn prefWidth="0" text="" />
                           </columns>
@@ -107,7 +107,7 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="inventoryTableView" layoutX="14.0" layoutY="12.0" prefHeight="415.0" prefWidth="571.0">
+                        <TableView fx:id="inventoryTableView" layoutX="14.0" layoutY="12.0" prefHeight="400.0" prefWidth="571.0">
                           <columns>
                           <TableColumn prefWidth="0" text="" />
                           </columns>
@@ -126,6 +126,24 @@
                         </Button>
                         <Label layoutX="598.0" layoutY="264.0" text="Min Amount :" />
                         <TextField fx:id="inventoryChangeMinAmtField" layoutX="673.0" layoutY="259.0" prefHeight="26.0" prefWidth="111.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Sales Frequently Together Report">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="157.0" prefWidth="441.0">
+                     <children>
+                        <DatePicker fx:id="startDatePicker" layoutX="50.0" layoutY="11.0" />
+                           <DatePicker fx:id="endDatePicker" layoutX="291.0" layoutY="12.0" />
+                           <Label layoutX="14.0" layoutY="16.0" text="Start:" />
+                           <Label layoutX="254.0" layoutY="17.0" text="End:" />
+                           <TableView fx:id="salesFrequentReportTableView" layoutX="14.0" layoutY="47.0" prefHeight="380.0" prefWidth="551.0">
+                           <columns>
+                              <TableColumn prefWidth="0" text="" />
+                           </columns>
+                           </TableView>
+                           <Button layoutX="495.0" layoutY="12.0" mnemonicParsing="false" onAction="#generateFrequentSalesReport" text="Get Sales" />
                      </children>
                   </AnchorPane>
                </content>

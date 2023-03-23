@@ -574,6 +574,31 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /*
+     * Given a time window, display a list of pairs of menu
+     * items that sell together often, popular or not, sorted by most frequent.
+     *
+     * @param startTime The start time of the time window
+     * 
+     * @param endTime The end time of the time window
+     *
+     * @return A ResultSet containing the sales report
+     */
+    public ResultSet generateFrequentSalesReport(String startTime, String endTime) {
+        ResultSet r = null;
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "select t1.firstitem, t1.seconditem, t1.concat as menuitemstogether, COUNT(t1.concat) from (SELECT a.menuitemid as firstitem, b.menuitemid as seconditem, a.orderid, CONCAT(a.menuitemid, ' ', b.menuitemid) FROM orderlineitems a JOIN orderlineitems b  ON a.orderid = b.orderid and a.menuitemid < b.menuitemid) t1 INNER JOIN (select orders.ordertime, orders.orderid from orders where orders.ordertime between '"
+                    + startTime + "' AND '" + endTime
+                    + "' group by orders.orderid) t2 ON t1.orderid = t2.orderid GROUP BY t1.firstitem, t1.seconditem, t1.concat ORDER BY COUNT(t1.concat) DESC;";
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return r;
+    }
+
     /**
      * Retrieves a result set containing the X report for the most recent day.
      * 

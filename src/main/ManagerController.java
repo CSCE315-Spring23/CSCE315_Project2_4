@@ -26,6 +26,7 @@ public class ManagerController {
     ObservableList<ObservableList<String>> excessReportData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> menuData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> salesReportData = FXCollections.observableArrayList();
+    ObservableList<ObservableList<String>> salesFrequentReportData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> xReportData = FXCollections.observableArrayList();
     ObservableList<ObservableList<String>> zReportData = FXCollections.observableArrayList();
 
@@ -44,6 +45,8 @@ public class ManagerController {
     private TableView menuTableView;
     @FXML
     private TableView salesReportTableView;
+    @FXML
+    private TableView salesFrequentReportTableView;
     @FXML
     private TableView excessReportTableView;
 
@@ -297,6 +300,56 @@ public class ManagerController {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    /**
+     * Generates a sales report of what frequently bought together as pairs based on
+     * the selected start and end dates.
+     * 
+     * If no dates are selected or the start date is after the end date, an error
+     * message is displayed.
+     * 
+     * @param event the ActionEvent triggered by clicking the "Generate Frequent
+     *              Sales Report" button
+     */
+    @FXML
+    private void generateFrequentSalesReport(ActionEvent event) {
+        System.out.println("Manager has tried to generate a Sales Report");
+
+        salesFrequentReportTableView.getItems().clear();
+        salesFrequentReportTableView.getColumns().clear();
+        Alert a = new Alert(AlertType.NONE);
+
+        // Error handling
+        if (startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
+            System.out.println("Error: No dates selected");
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Error: No dates selected");
+            a.show();
+            return;
+        }
+        if (startDatePicker.getValue().isAfter(endDatePicker.getValue())) {
+            System.out.println("Start date is after end date");
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Error: Start date is after end date");
+            a.show();
+            return;
+        }
+        if (startDatePicker.getValue().isEqual(endDatePicker.getValue())) {
+            System.out.println("Start date is equal to end date");
+            a.setAlertType(AlertType.ERROR);
+            a.setContentText("Error: Start date is equal to end date");
+            a.show();
+            return;
+        }
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+        setTableResult(
+                db.generateFrequentSalesReport(
+                        startDate.toString() + " 00:00:00",
+                        endDate.toString() + " 23:59:59"),
+                salesFrequentReportData,
+                salesFrequentReportTableView);
     }
 
     /**

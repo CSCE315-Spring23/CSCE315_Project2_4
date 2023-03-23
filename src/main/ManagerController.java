@@ -342,10 +342,13 @@ public class ManagerController {
             a.show();
             return;
         }
-
-        Date startDate = Date.valueOf(startDatePicker.getValue());
-        Date endDate = Date.valueOf(endDatePicker.getValue());
-        setTableResult(db.generateFrequentSalesReport(startDate, endDate), salesFrequentReportData,
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+        setTableResult(
+                db.generateFrequentSalesReport(
+                        startDate.toString() + " 00:00:00",
+                        endDate.toString() + " 23:59:59"),
+                salesFrequentReportData,
                 salesFrequentReportTableView);
     }
 

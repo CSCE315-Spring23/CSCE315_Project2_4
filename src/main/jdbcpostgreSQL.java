@@ -584,15 +584,13 @@ public class jdbcpostgreSQL {
      *
      * @return A ResultSet containing the sales report
      */
-    public ResultSet generateFrequentSalesReport(Date startTime, Date endTime) {
+    public ResultSet generateFrequentSalesReport(String startTime, String endTime) {
         ResultSet r = null;
         try {
             Statement stmt = conn.createStatement();
-            String sqlStatement = "SELECT menuitems.name as \"Menu Item\", COUNT(1) as \"Quantity Sold\" , ROUND(CAST(SUM(orderlineitems.menuprice) AS numeric), 2) as \"Sales\"\n"
-                    + "FROM orderlineitems \n"
-                    + "JOIN menuitems ON orderlineitems.menuitemID = menuitems.menuItemID JOIN orders ON orderlineitems.orderID = orders.orderID \n"
-                    + "WHERE orders.ordertime BETWEEN '" + startTime + "' AND '" + endTime
-                    + "' GROUP BY menuitems.name";
+            String sqlStatement = "select t1.firstitem, t1.seconditem, t1.concat as menuitemstogether, COUNT(t1.concat) from (SELECT a.menuitemid as firstitem, b.menuitemid as seconditem, a.orderid, CONCAT(a.menuitemid, ' ', b.menuitemid) FROM orderlineitems a JOIN orderlineitems b  ON a.orderid = b.orderid and a.menuitemid < b.menuitemid) t1 INNER JOIN (select orders.ordertime, orders.orderid from orders where orders.ordertime between '"
+                    + startTime + "' AND '" + endTime
+                    + "' group by orders.orderid) t2 ON t1.orderid = t2.orderid GROUP BY t1.firstitem, t1.seconditem, t1.concat ORDER BY COUNT(t1.concat) DESC;";
             System.out.println(sqlStatement);
             r = stmt.executeQuery(sqlStatement);
         } catch (Exception e) {

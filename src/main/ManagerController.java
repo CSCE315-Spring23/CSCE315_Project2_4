@@ -345,7 +345,8 @@ public class ManagerController {
 
         Date startDate = Date.valueOf(startDatePicker.getValue());
         Date endDate = Date.valueOf(endDatePicker.getValue());
-        setTableResult(db.getSalesReport(startDate, endDate), salesFrequentReportData, salesFrequentReportTableView);
+        setTableResult(db.generateFrequentSalesReport(startDate, endDate), salesFrequentReportData,
+                salesFrequentReportTableView);
     }
 
     /**

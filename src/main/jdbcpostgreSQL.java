@@ -574,6 +574,33 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /*
+     * Given a time window, display a list of pairs of menu
+     * items that sell together often, popular or not, sorted by most frequent.
+     *
+     * @param startTime The start time of the time window
+     * 
+     * @param endTime The end time of the time window
+     *
+     * @return A ResultSet containing the sales report
+     */
+    public ResultSet generateFrequentSalesReport(Date startTime, Date endTime) {
+        ResultSet r = null;
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "SELECT menuitems.name as \"Menu Item\", COUNT(1) as \"Quantity Sold\" , ROUND(CAST(SUM(orderlineitems.menuprice) AS numeric), 2) as \"Sales\"\n"
+                    + "FROM orderlineitems \n"
+                    + "JOIN menuitems ON orderlineitems.menuitemID = menuitems.menuItemID JOIN orders ON orderlineitems.orderID = orders.orderID \n"
+                    + "WHERE orders.ordertime BETWEEN '" + startTime + "' AND '" + endTime
+                    + "' GROUP BY menuitems.name";
+            System.out.println(sqlStatement);
+            r = stmt.executeQuery(sqlStatement);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return r;
+    }
+
     /**
      * Retrieves a result set containing the X report for the most recent day.
      * 

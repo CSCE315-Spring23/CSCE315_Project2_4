@@ -1,5 +1,3 @@
-
-// Java Backend postgress
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.*;
@@ -8,17 +6,32 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-// Command to run on Mac:
-// cd src/main
-// javac *.java
-// java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
+/**
+ * 
+ * The jdbcpostgreSQL class represents a connection to a PostgreSQL database
+ * using JDBC.
+ * This class provides an instance variable conn that holds the database
+ * connection object.
+ * Once you have an instance of this class, you can use the various methods of
+ * the JDBC API
+ */
 public class jdbcpostgreSQL {
+    /**
+     * The conn instance variable holds the database connection object.
+     */
     Connection conn;
 
+    /**
+     * Constructs a new jdbcpostgreSQL object and sets the connection to the
+     * PostgreSQL database.
+     */
     public jdbcpostgreSQL() {
         conn = new dbSetup().getConnection();
     }
 
+    /**
+     * Closes the connection to the database.
+     */
     public void close() {
         try {
             conn.close();
@@ -28,6 +41,13 @@ public class jdbcpostgreSQL {
         } // end try catch
     }
 
+    /**
+     * Rounds a given float number to the specified number of decimal places.
+     * 
+     * @param d            the float number to be rounded
+     * @param decimalPlace the number of decimal places to round to
+     * @return the rounded float number
+     */
     public static float round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, RoundingMode.HALF_UP);
@@ -41,8 +61,6 @@ public class jdbcpostgreSQL {
      * @param conn is the session instance of java to database
      *
      * @returns newOrderID
-     *
-     * @throws exception if return of newOrderId fails
      */
     public int getNewOrderId() {
         // Get the maximum order_id + 1 to be the new order it
@@ -66,8 +84,6 @@ public class jdbcpostgreSQL {
      * @param conn is the session instance of java to database
      *
      * @returns newLineItemId
-     *
-     * @throws exception if return of newLineItemId fails
      */
     public int getNewLineItemId() {
         // Get the maximum order_id + 1 to be the new order it
@@ -96,9 +112,6 @@ public class jdbcpostgreSQL {
      * @param newOrderId is the order id to be pushed/updated
      *
      * @returns void
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public void updateOrdersAndOrderLineItemsTable(Vector<Integer> itemIDs, int employeeID, int newOrderId) {
         try {
@@ -226,9 +239,6 @@ public class jdbcpostgreSQL {
      * @param qty is the amount to reduce the ingredient currAmt by
      *
      * @returns void
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public void subtractInventory(int ingredientID, int qty) {
         try {
@@ -251,14 +261,29 @@ public class jdbcpostgreSQL {
      * @param qty is the amount to increase the ingredient currAmt by
      *
      * @returns void
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public void addInventory(int ingredientID, int qty) {
         try {
             Statement stmt = conn.createStatement();
             String sqlStatement = "update inventory set curramount = curramount+" + Integer.toString(qty)
+                    + " where ingredientid=" + Integer.toString(ingredientID) + ";";
+            System.out.println(sqlStatement);
+            stmt.executeUpdate(sqlStatement);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Updates the minimum amount of a given ingredient in the inventory.
+     * 
+     * @param ingredientID the ID of the ingredient to be updated
+     * @param minAmt       the new minimum amount for the ingredient
+     */
+    public void updateIngredientMinAmt(int ingredientID, int minAmt) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "update inventory set minamount = " + Integer.toString(minAmt)
                     + " where ingredientid=" + Integer.toString(ingredientID) + ";";
             System.out.println(sqlStatement);
             stmt.executeUpdate(sqlStatement);
@@ -274,9 +299,6 @@ public class jdbcpostgreSQL {
      *
      * @returns boolean; true if the id is unused in teh menuitems table, flase if
      * it is used in already
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public boolean isMenuIdValid(int id) {
         try {
@@ -309,9 +331,6 @@ public class jdbcpostgreSQL {
      * server view the item will be displayed
      *
      * @returns void
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public void addMenuItem(int id, String name, float price, int classId) {
         try {
@@ -329,6 +348,31 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /**
+     * Updates the price of a given menu item.
+     * 
+     * @param itemID the ID of the menu item to be updated
+     * @param price  the new price for the menu item
+     */
+    public void updateMenuItemPrice(int itemID, float price) {
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlStatement = "update menuitems set menuprice = " + Float.toString(price)
+                    + " where menuitemid=" + Integer.toString(itemID) + ";";
+            System.out.println(sqlStatement);
+            stmt.executeUpdate(sqlStatement);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Calculates the total price of a given order based on the menu items selected.
+     * 
+     * @param itemIDs a vector of menu item IDs included in the order
+     * 
+     * @return the total price of the order
+     */
     public float getOrderTotal(Vector<Integer> itemIDs) {
         try {
             Statement stmt = conn.createStatement();
@@ -359,9 +403,6 @@ public class jdbcpostgreSQL {
      * @param itemID is the menuitemid of the to name to be returned
      *
      * @returns String of the name of the menuitem
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public String getItemName(int itemID) {
         try {
@@ -384,9 +425,6 @@ public class jdbcpostgreSQL {
      * Retrieves the data in the inventory table as a ResultSet
      *
      * @returns ResultSet of the sql query that retreives the inventory table data
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public ResultSet getInventory() {
         ResultSet r = null;
@@ -408,9 +446,6 @@ public class jdbcpostgreSQL {
      *
      * @returns ResultSet of the sql query that retreives the which ingredients need
      * to be restocked
-     *
-     * @throws exception if function fails to create the sql statement to be
-     * inserted into order
      */
     public ResultSet getRestockReport() {
         ResultSet r = null;
@@ -427,6 +462,12 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /**
+     * Retrieves a result set containing the excess report for a specified date.
+     * 
+     * @param date the date to retrieve the excess report for
+     * @return a result set containing the excess report for the specified date
+     */
     public ResultSet getExcessReport(String date) {
         ResultSet r = null;
         try {
@@ -438,9 +479,8 @@ public class jdbcpostgreSQL {
             String formattedDateTime = dateTimeRightNow.format(dateTimeFormatter);
 
             Statement stmt = conn.createStatement();
-            String sqlStatement = "select t1.ingredientid, t1.soldqty, t2.name, t2.currAmount, t2.unit, t2.minAmount, t2.cost from (select it.ingredientid, sum(it.qty) as soldqty from inventorytransactions as it where it.ordertime between '"
-                    + date + "' AND '" + formattedDateTime
-                    + "' group by it.ingredientid) t1 INNER JOIN (select i.ingredientID, i.name, i.currAmount, i.unit, i.minAmount, i.cost from inventory as i) t2 ON t1.ingredientID = t2.ingredientID WHERE t1.soldqty < (t2.currAmount + t1.soldqty) * 0.1;";
+            String sqlStatement = "select distinct inventory.ingredientID, inventory.name, inventory.currAmount, inventory.unit, inventory.minAmount, inventory.cost from inventory join inventorytransactions on inventory.ingredientid = inventorytransactions.ingredientid where inventorytransactions.ordertime between '"
+                    + date + "' AND '" + formattedDateTime + "' and inventory.curramount > inventory.minamount * 0.9;";
             System.out.println(sqlStatement);
             r = stmt.executeQuery(sqlStatement);
 
@@ -451,11 +491,16 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /**
+     * Retrieves a result set containing all menu items.
+     * 
+     * @return a result set containing all menu items
+     */
     public ResultSet getMenu() {
         ResultSet r = null;
         try {
             Statement stmt = conn.createStatement();
-            String sqlStatement = "SELECT * from menuitems";
+            String sqlStatement = "SELECT * from menuitems order by menuitemid";
             System.out.println(sqlStatement);
             r = stmt.executeQuery(sqlStatement);
         } catch (Exception e) {
@@ -465,6 +510,14 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /**
+     * Retrieves a result set containing all menu items belonging to a specific
+     * class ID.
+     * 
+     * @param classID the ID of the class to retrieve menu items for
+     * @return a result set containing all menu items belonging to the specified
+     *         class ID
+     */
     public ResultSet getClassItems(int classID) {
         ResultSet r = null;
         try {
@@ -478,6 +531,11 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /**
+     * Deletes a menu item with a specified ID.
+     * 
+     * @param id the ID of the menu item to delete
+     */
     public void deleteMenuItem(int id) {
         try {
             Statement stmt = conn.createStatement();
@@ -498,8 +556,6 @@ public class jdbcpostgreSQL {
      * @param endTime The end time of the time window
      *
      * @return A ResultSet containing the sales report
-     * 
-     * @throws Exception if the sql statement fails to execute
      */
     public ResultSet getSalesReport(Date startTime, Date endTime) {
         ResultSet r = null;
@@ -518,6 +574,11 @@ public class jdbcpostgreSQL {
         return r;
     }
 
+    /**
+     * Retrieves a result set containing the X report for the most recent day.
+     * 
+     * @return a result set containing the X report for the most recent day
+     */
     public ResultSet getXReport() {
         ResultSet r = null;
         try {
@@ -529,8 +590,5 @@ public class jdbcpostgreSQL {
             System.out.println(e.getMessage());
         }
         return r;
-    }
-
-    public static void main(String[] args) {
     }
 } // end Class

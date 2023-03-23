@@ -12,6 +12,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.util.Callback;
 
+/**
+ * 
+ * The ManagerController class represents the controller for the manager GUI,
+ * which allows a manager to view and
+ * manipulate data in the restaurant's inventory and menu, and generate
+ * different sales reports.
+ */
 public class ManagerController {
     private jdbcpostgreSQL db = new jdbcpostgreSQL();
     ObservableList<ObservableList<String>> inventoryData = FXCollections.observableArrayList();
@@ -54,16 +61,33 @@ public class ManagerController {
     @FXML
     private TextField newMenuClassField;
     @FXML
+    private TextField changeMenuPriceField;
+    @FXML
     private TextField inventoryRestockField;
     @FXML
     private TextField inventoryReduceField;
+    @FXML
+    private TextField inventoryChangeMinAmtField;
 
+    /**
+     * Initializes the inventory, restock report, and menu tables with data from the
+     * database.
+     */
     public void initialize() {
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
         setTableResult(db.getMenu(), menuData, menuTableView);
     }
 
+    /**
+     * Generates a sales report based on the selected start and end dates.
+     * 
+     * If no dates are selected or the start date is after the end date, an error
+     * message is displayed.
+     * 
+     * @param event the ActionEvent triggered by clicking the "Generate Sales
+     *              Report" button
+     */
     @FXML
     private void generateSalesReport(ActionEvent event) {
         System.out.println("Manager has tried to generate a Sales Report");
@@ -100,18 +124,39 @@ public class ManagerController {
         setTableResult(db.getSalesReport(startDate, endDate), salesReportData, salesReportTableView);
     }
 
+    /**
+     * Generates an X Report and populates the X Report table with data from the
+     * database.
+     * 
+     * @param event the ActionEvent triggered by clicking the "Generate X Report"
+     *              button
+     */
     @FXML
     private void generateXReport(ActionEvent event) {
         System.out.println("Manager has tried to generate an X Report");
         setTableResult(db.getXReport(), xReportData, xReportTableView);
     }
 
+    /**
+     * Generates a Z Report and populates the Z Report table with data from the
+     * database.
+     * 
+     * @param event the ActionEvent triggered by clicking the "Generate Z Report"
+     *              button
+     */
     @FXML
     private void generateZReport(ActionEvent event) {
         System.out.println("Manager has tried to generate a Z Report");
         setTableResult(db.getXReport(), zReportData, zReportTableView);
     }
 
+    /**
+     * Clears the excess report table view and sets it with new data from the
+     * database based on the selected date.
+     * 
+     * @param event The event triggered by the user clicking the "Get Report"
+     *              button.
+     */
     @FXML
     private void getDateExcessReport(ActionEvent event) {
         excessReportTableView.getItems().clear();
@@ -122,6 +167,12 @@ public class ManagerController {
         setTableResult(db.getExcessReport(date.toString() + " 00:00:00"), excessReportData, excessReportTableView);
     }
 
+    /**
+     * Clears the restock report table view and sets it with new data from the
+     * database.
+     * 
+     * @param event The event triggered by the user clicking the "Refresh" button.
+     */
     @FXML
     private void refreshRestockReport(ActionEvent event) {
         restockReportTableView.getItems().clear();
@@ -129,6 +180,12 @@ public class ManagerController {
         setTableResult(db.getRestockReport(), restockReportData, restockReportTableView);
     }
 
+    /**
+     * Increases the quantity of the selected inventory item and updates the
+     * inventory table view accordingly.
+     * 
+     * @param event The event triggered by the user clicking the "Restock" button.
+     */
     @FXML
     private void restockSelectedInventory(ActionEvent event) {
         try {
@@ -147,7 +204,7 @@ public class ManagerController {
                 } else {
                     db.addInventory(id, qty);
                     refreshInventoryTable();
-                    inventoryTableView.getSelectionModel().clearSelection();
+                    inventoryRestockField.setText("");
                 }
             }
         } catch (Exception e) {
@@ -161,6 +218,12 @@ public class ManagerController {
         }
     }
 
+    /**
+     * Decreases the quantity of the selected inventory item and updates the
+     * inventory table view accordingly.
+     * 
+     * @param event The event triggered by the user clicking the "Reduce" button.
+     */
     @FXML
     private void reduceSelectedInventory(ActionEvent event) {
         try {
@@ -179,7 +242,7 @@ public class ManagerController {
                 } else {
                     db.subtractInventory(id, qty);
                     refreshInventoryTable();
-                    inventoryTableView.getSelectionModel().clearSelection();
+                    inventoryReduceField.setText("");
                 }
             }
         } catch (Exception e) {
@@ -193,6 +256,58 @@ public class ManagerController {
         }
     }
 
+    /**
+     * Handles the action event for changing the minimum amount of an ingredient in
+     * the inventory table.
+     * Parses the selected row's ID from the table and the input minimum amount from
+     * the corresponding field,
+     * validates the input, and updates the database accordingly.
+     * If input is invalid, displays an error message.
+     * 
+     * @param event the ActionEvent triggered by the user clicking the corresponding
+     *              button
+     */
+    @FXML
+    private void inventoryChangeMinAmt(ActionEvent event) {
+        try {
+            int minAmt = 0;
+            Object rowDataObj = inventoryTableView.getSelectionModel().getSelectedItems().get(0);
+            String rowDataStr = rowDataObj.toString();
+            String idStr = rowDataStr.substring(1, rowDataStr.indexOf(','));
+            int id = Integer.parseInt(idStr);
+            String text = inventoryChangeMinAmtField.getText();
+            if (!text.isEmpty()) {
+                minAmt = Integer.parseInt(text);
+                if (minAmt < 0) {
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Minimum Amount cannot be less than 0!");
+                    a.show();
+                } else {
+                    db.updateIngredientMinAmt(id, minAmt);
+                    refreshInventoryTable();
+                    inventoryChangeMinAmtField.setText("");
+                }
+            }
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                Alert a = new Alert(AlertType.ERROR);
+                a.setContentText("Minimum Amount must be a positive integer!");
+                a.show();
+            } else {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Handles the action event for adding a new menu item to the menu table.
+     * Parses the input name, ID, class, and price from the corresponding fields,
+     * validates the input, and adds the new menu item to the database.
+     * If input is invalid, displays an error message.
+     * 
+     * @param event the ActionEvent triggered by the user clicking the corresponding
+     *              button
+     */
     @FXML
     private void addMenuItem(ActionEvent event) {
         try {
@@ -238,6 +353,10 @@ public class ManagerController {
             if (db.isMenuIdValid(id) && isClassIdValid(classId) && price >= 0) {
                 db.addMenuItem(id, name, price, classId);
                 refreshMenuTable(event);
+                newMenuNameField.setText("");
+                newMenuIDField.setText("");
+                newMenuClassField.setText("");
+                newMenuPriceField.setText("");
             } else {
                 // throw popup explianing invalid criteria
                 if (!db.isMenuIdValid(id)) {
@@ -260,8 +379,56 @@ public class ManagerController {
         }
     }
 
+    /**
+     * Handles the action event for changing the price of a menu item in the menu
+     * table.
+     * Parses the selected row's ID from the table and the input price from the
+     * corresponding field,
+     * validates the input, and updates the database accordingly.
+     * If input is invalid, displays an error message.
+     * 
+     * @param event the ActionEvent triggered by the user clicking the corresponding
+     *              button
+     */
     @FXML
-    void deleteSelectedMenuItem(ActionEvent event) {
+    private void menuChangePrice(ActionEvent event) {
+        try {
+            float price = 0;
+            Object rowDataObj = menuTableView.getSelectionModel().getSelectedItems().get(0);
+            String rowDataStr = rowDataObj.toString();
+            String idStr = rowDataStr.substring(1, rowDataStr.indexOf(','));
+            int id = Integer.parseInt(idStr);
+            String text = changeMenuPriceField.getText();
+            if (!text.isEmpty()) {
+                price = jdbcpostgreSQL.round(Float.parseFloat(text), 2);
+                if (price < 0) {
+                    Alert a = new Alert(AlertType.ERROR);
+                    a.setContentText("Price cannot be less than 0!");
+                    a.show();
+                } else {
+                    db.updateMenuItemPrice(id, price);
+                    refreshMenuTable(event);
+                    changeMenuPriceField.setText("");
+                }
+            }
+        } catch (Exception e) {
+            if (e instanceof NumberFormatException) {
+                Alert a = new Alert(AlertType.ERROR);
+                a.setContentText("Minimum Amount must be a positive integer!");
+                a.show();
+            } else {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Deletes the selected menu item from the table and database
+     * 
+     * @param event ActionEvent triggered by delete button
+     */
+    @FXML
+    private void deleteSelectedMenuItem(ActionEvent event) {
         Object rowDataObj = menuTableView.getSelectionModel().getSelectedItems().get(0);
         String rowDataStr = rowDataObj.toString();
         String idStr = rowDataStr.substring(1, rowDataStr.indexOf(','));
@@ -272,13 +439,23 @@ public class ManagerController {
         menuTableView.getSelectionModel().clearSelection();
     }
 
+    /**
+     * Refreshes the menu table with updated data from the database
+     * 
+     * @param event ActionEvent triggered by refresh button
+     */
     @FXML
-    void refreshMenuTable(ActionEvent event) {
+    private void refreshMenuTable(ActionEvent event) {
         menuTableView.getItems().clear();
         menuTableView.getColumns().clear();
         setTableResult(db.getMenu(), menuData, menuTableView);
     }
 
+    /**
+     * Opens the server view
+     * 
+     * @param event ActionEvent triggered by open server button
+     */
     @FXML
     private void openServerView(ActionEvent event) {
         System.out.println("Manager has tried to open the Server View");
@@ -292,6 +469,13 @@ public class ManagerController {
         }
     }
 
+    /**
+     * Sets the result of a query to a table view
+     * 
+     * @param r         ResultSet containing the query results
+     * @param tableData ObservableList containing the table data
+     * @param table     TableView to display the data
+     */
     private void setTableResult(ResultSet r, ObservableList<ObservableList<String>> tableData, TableView table) {
         try {
             int numCols = r.getMetaData().getColumnCount();
@@ -327,12 +511,23 @@ public class ManagerController {
         }
     }
 
+    /**
+     * Refreshes the inventory table by clearing the current items and columns and
+     * setting new data obtained from the database.
+     */
     private void refreshInventoryTable() {
         inventoryTableView.getItems().clear();
         inventoryTableView.getColumns().clear();
         setTableResult(db.getInventory(), inventoryData, inventoryTableView);
     }
 
+    /**
+     * Checks if the given class ID is valid by ensuring it is between 1 and 5
+     * inclusive.
+     *
+     * @param classId The class ID to check.
+     * @return True if the class ID is valid, false otherwise.
+     */
     private boolean isClassIdValid(int classId) {
         if (classId < 6 && classId > 0) {
             return true;
